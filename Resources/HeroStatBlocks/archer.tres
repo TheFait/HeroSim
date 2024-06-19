@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="HeroStatBlock" load_steps=3 format=3 uid="uid://dy2caup86mpmy"]
+
+[ext_resource type="Script" path="res://Resources/hero_stats.gd" id="1_cire0"]
+[ext_resource type="Resource" uid="uid://caciyyqbc3gft" path="res://Resources/Abilities/shoot.tres" id="1_gvkdy"]
+
+[resource]
+script = ExtResource("1_cire0")
+name = "Snipes McGee"
+health = 9
+speed = 5
+abilities = Array[Resource("res://Resources/ability.gd")]([ExtResource("1_gvkdy")])

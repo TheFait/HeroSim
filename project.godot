@@ -28,6 +28,10 @@ window/size/resizable=false
 window/size/always_on_top=true
 window/stretch/aspect="expand"
 
+[dotnet]
+
+project/assembly_name="GodotGameTemplate"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg")

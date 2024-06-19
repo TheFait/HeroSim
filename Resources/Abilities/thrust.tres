@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=2 format=3 uid="uid://dkkai4tk56xm0"]
+
+[ext_resource type="Script" path="res://Resources/ability.gd" id="1_p02ho"]
+
+[resource]
+script = ExtResource("1_p02ho")
+name = "Thrust"
+damage = 2

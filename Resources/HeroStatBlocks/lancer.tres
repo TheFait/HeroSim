@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="HeroStatBlock" load_steps=3 format=3 uid="uid://npkqqdyoplkd"]
+
+[ext_resource type="Resource" uid="uid://dkkai4tk56xm0" path="res://Resources/Abilities/thrust.tres" id="1_5nolb"]
+[ext_resource type="Script" path="res://Resources/hero_stats.gd" id="1_wg46g"]
+
+[resource]
+script = ExtResource("1_wg46g")
+name = "Lance"
+health = 9
+speed = 4
+abilities = Array[Resource("res://Resources/ability.gd")]([ExtResource("1_5nolb")])

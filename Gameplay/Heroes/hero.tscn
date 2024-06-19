@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddmrwwtg3w072"]
+
+[ext_resource type="Script" path="res://Gameplay/Heroes/hero.gd" id="1_rdjod"]
+[ext_resource type="Texture2D" uid="uid://dibijrco65alm" path="res://icon.svg" id="2_65x6x"]
+
+[node name="Hero" type="Node2D"]
+position = Vector2(0, -1)
+script = ExtResource("1_rdjod")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_65x6x")
+
+[node name="NameLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -43.0
+offset_top = -99.0
+offset_right = 44.0
+offset_bottom = -76.0
+grow_horizontal = 2
+text = "Char Name"
