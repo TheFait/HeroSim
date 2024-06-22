@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="HeroStatBlock" load_steps=3 format=3 uid="uid://npkqqdyoplkd"]
+[gd_resource type="Resource" script_class="HeroStatBlock" load_steps=5 format=3 uid="uid://npkqqdyoplkd"]
 
 [ext_resource type="Resource" uid="uid://dkkai4tk56xm0" path="res://Resources/Abilities/thrust.tres" id="1_5nolb"]
 [ext_resource type="Script" path="res://Resources/hero_stats.gd" id="1_wg46g"]
+[ext_resource type="Resource" uid="uid://cm71iwl4woks1" path="res://Resources/Abilities/stab.tres" id="2_m5nl7"]
+[ext_resource type="Resource" uid="uid://baybj26rl4n1s" path="res://Resources/Abilities/blast.tres" id="3_k5uqr"]
 
 [resource]
 script = ExtResource("1_wg46g")
-name = "Lance"
-health = 9
+class_title = "Lancer"
+health = 98
 speed = 4
-abilities = Array[Resource("res://Resources/ability.gd")]([ExtResource("1_5nolb")])
+abilities = Array[Resource("res://Resources/ability.gd")]([ExtResource("1_5nolb"), ExtResource("2_m5nl7"), ExtResource("3_k5uqr")])

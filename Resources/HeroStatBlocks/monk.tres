@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="HeroStatBlock" load_steps=3 format=3 uid="uid://dh1we7qaakbil"]
+[gd_resource type="Resource" script_class="HeroStatBlock" load_steps=5 format=3 uid="uid://dh1we7qaakbil"]
 
 [ext_resource type="Resource" uid="uid://dcr2c0pkmk8li" path="res://Resources/Abilities/punch.tres" id="1_pwhxa"]
 [ext_resource type="Script" path="res://Resources/hero_stats.gd" id="1_rgdjx"]
+[ext_resource type="Resource" uid="uid://bued0a2u0xind" path="res://Resources/Abilities/kick.tres" id="2_k8wow"]
+[ext_resource type="Resource" uid="uid://baybj26rl4n1s" path="res://Resources/Abilities/blast.tres" id="3_i84jm"]
 
 [resource]
 script = ExtResource("1_rgdjx")
-name = "McMunk"
-health = 11
+class_title = "Monk"
+health = 102
 speed = 3
-abilities = Array[Resource("res://Resources/ability.gd")]([ExtResource("1_pwhxa")])
+abilities = Array[Resource("res://Resources/ability.gd")]([ExtResource("1_pwhxa"), ExtResource("2_k8wow"), ExtResource("3_i84jm")])

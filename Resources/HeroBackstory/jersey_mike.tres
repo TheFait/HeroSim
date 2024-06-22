@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="HeroBackstory" load_steps=2 format=3 uid="uid://ckvfn74e11xw"]
+
+[ext_resource type="Script" path="res://Resources/hero_backstory.gd" id="1_ne0gn"]
+
+[resource]
+script = ExtResource("1_ne0gn")
+name = "Jersarius Michaelson"
+color = Color(0.176471, 0.537255, 0.784314, 1)
+home_town = "New Jersey (sucks)"

@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="HeroStatBlock" load_steps=3 format=3 uid="uid://dy2caup86mpmy"]
+[gd_resource type="Resource" script_class="HeroStatBlock" load_steps=5 format=3 uid="uid://dy2caup86mpmy"]
 
 [ext_resource type="Script" path="res://Resources/hero_stats.gd" id="1_cire0"]
 [ext_resource type="Resource" uid="uid://caciyyqbc3gft" path="res://Resources/Abilities/shoot.tres" id="1_gvkdy"]
+[ext_resource type="Resource" uid="uid://cm71iwl4woks1" path="res://Resources/Abilities/stab.tres" id="2_28l4v"]
+[ext_resource type="Resource" uid="uid://dcr2c0pkmk8li" path="res://Resources/Abilities/punch.tres" id="3_5ckj8"]
 
 [resource]
 script = ExtResource("1_cire0")
-name = "Snipes McGee"
-health = 9
+class_title = "Archer"
+health = 95
 speed = 5
-abilities = Array[Resource("res://Resources/ability.gd")]([ExtResource("1_gvkdy")])
+abilities = Array[Resource("res://Resources/ability.gd")]([ExtResource("1_gvkdy"), ExtResource("2_28l4v"), ExtResource("3_5ckj8")])

@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource("1_p02ho")
 name = "Thrust"
-damage = 2
+damage = 21

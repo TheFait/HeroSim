@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="HeroBackstory" load_steps=2 format=3 uid="uid://ctd3fno3csygk"]
+
+[ext_resource type="Script" path="res://Resources/hero_backstory.gd" id="1_42n3t"]
+
+[resource]
+script = ExtResource("1_42n3t")
+name = "The Wizard"
+color = Color(0.94902, 0, 0, 1)
+home_town = "Somewhere Magical"

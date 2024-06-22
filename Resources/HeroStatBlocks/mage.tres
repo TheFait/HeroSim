@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="HeroStatBlock" load_steps=3 format=3 uid="uid://brodilfiuckwm"]
+[gd_resource type="Resource" script_class="HeroStatBlock" load_steps=5 format=3 uid="uid://brodilfiuckwm"]
 
 [ext_resource type="Resource" uid="uid://c4yj0vpqbnqbl" path="res://Resources/Abilities/fire.tres" id="1_2jawb"]
 [ext_resource type="Script" path="res://Resources/hero_stats.gd" id="1_kunit"]
+[ext_resource type="Resource" uid="uid://baybj26rl4n1s" path="res://Resources/Abilities/blast.tres" id="2_cbud0"]
+[ext_resource type="Resource" uid="uid://bued0a2u0xind" path="res://Resources/Abilities/kick.tres" id="3_0iqea"]
 
 [resource]
 script = ExtResource("1_kunit")
-name = "Johnny Magician"
-health = 8
+class_title = "Mage"
+health = 89
 speed = 4
-abilities = Array[Resource("res://Resources/ability.gd")]([ExtResource("1_2jawb")])
+abilities = Array[Resource("res://Resources/ability.gd")]([ExtResource("1_2jawb"), ExtResource("2_cbud0"), ExtResource("3_0iqea")])

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="HeroBackstory" load_steps=2 format=3 uid="uid://divrojnkt4n61"]
+
+[ext_resource type="Script" path="res://Resources/hero_backstory.gd" id="1_q0qks"]
+
+[resource]
+script = ExtResource("1_q0qks")
+name = "The Karen"
+color = Color(0.87451, 0.713726, 0.141176, 1)
+home_town = "Every Suburb USA"

@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="HeroStatBlock" load_steps=4 format=3 uid="uid://c4kpynb47nksg"]
+[gd_resource type="Resource" script_class="HeroStatBlock" load_steps=6 format=3 uid="uid://c4kpynb47nksg"]
 
 [ext_resource type="Script" path="res://Resources/hero_stats.gd" id="1_o2otw"]
 [ext_resource type="Resource" uid="uid://cm71iwl4woks1" path="res://Resources/Abilities/stab.tres" id="1_xi0l0"]
 [ext_resource type="Resource" uid="uid://dcr2c0pkmk8li" path="res://Resources/Abilities/punch.tres" id="2_w8rcd"]
+[ext_resource type="Resource" uid="uid://bued0a2u0xind" path="res://Resources/Abilities/kick.tres" id="3_j1eci"]
+[ext_resource type="Resource" uid="uid://dkkai4tk56xm0" path="res://Resources/Abilities/thrust.tres" id="4_k58cv"]
 
 [resource]
 script = ExtResource("1_o2otw")
-name = "Warrior Jones"
-health = 10
+class_title = "Warrior"
+health = 100
 speed = 3
-abilities = Array[Resource("res://Resources/ability.gd")]([ExtResource("1_xi0l0"), ExtResource("2_w8rcd")])
+abilities = Array[Resource("res://Resources/ability.gd")]([ExtResource("1_xi0l0"), ExtResource("2_w8rcd"), ExtResource("3_j1eci"), ExtResource("4_k58cv")])

@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource("1_l1e2f")
 name = "Stab"
-damage = 1
+damage = 18
