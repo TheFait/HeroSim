@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_ne0gn")
-name = "Jersarius Michaelson"
+first_name = "Jersarius"
+last_name = "Michaelson"
 color = Color(0.176471, 0.537255, 0.784314, 1)
 home_town = "New Jersey (sucks)"

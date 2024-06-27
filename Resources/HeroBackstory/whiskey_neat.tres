@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="HeroBackstory" load_steps=2 format=3 uid="uid://c27iljxilfm07"]
+
+[ext_resource type="Script" path="res://Resources/hero_backstory.gd" id="1_korca"]
+
+[resource]
+script = ExtResource("1_korca")
+first_name = "Whiskey"
+last_name = "Neat"
+color = Color(0.607843, 0.12549, 0.890196, 1)
+home_town = "Bourbon Kentucky"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="HeroStatBlock" load_steps=5 format=3 uid="uid://b11kph3fgscf1"]
+
+[ext_resource type="Script" path="res://Resources/hero_stats.gd" id="1_2ou80"]
+[ext_resource type="Resource" uid="uid://cx7yw5nu33bv2" path="res://Resources/Abilities/ice_beam.tres" id="1_oiyxg"]
+[ext_resource type="Resource" uid="uid://dkkai4tk56xm0" path="res://Resources/Abilities/thrust.tres" id="2_eejpo"]
+[ext_resource type="Resource" uid="uid://c4yj0vpqbnqbl" path="res://Resources/Abilities/fire.tres" id="3_dbd0x"]
+
+[resource]
+script = ExtResource("1_2ou80")
+class_title = "Paladin"
+health = 101
+speed = 2
+abilities = Array[Resource("res://Resources/ability.gd")]([ExtResource("1_oiyxg"), ExtResource("2_eejpo"), ExtResource("3_dbd0x")])

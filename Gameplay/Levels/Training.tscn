@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3 uid="uid://cx6ib3fdydui7"]
+
+[ext_resource type="PackedScene" uid="uid://dlrq4g51e2lc3" path="res://Gameplay/Levels/Level.tscn" id="1_kuct7"]
+[ext_resource type="Script" path="res://Gameplay/Levels/Training.gd" id="2_vcb5p"]
+[ext_resource type="Theme" uid="uid://br3hpq3vcr245" path="res://Menus/Themes/base_theme.tres" id="3_s5ut5"]
+
+[node name="Training" instance=ExtResource("1_kuct7")]
+script = ExtResource("2_vcb5p")
+
+[node name="Marker2D5" type="Marker2D" parent="Team1Positions" index="0"]
+position = Vector2(247, 916)
+
+[node name="Marker2D6" type="Marker2D" parent="Team1Positions" index="1"]
+position = Vector2(391, 813)
+
+[node name="Marker2D7" type="Marker2D" parent="Team1Positions" index="2"]
+position = Vector2(381, 1025)
+
+[node name="Marker2D8" type="Marker2D" parent="Team1Positions" index="3"]
+position = Vector2(554, 912)
+
+[node name="Marker2D9" type="Marker2D" parent="Team2Positions" index="0"]
+position = Vector2(1231, 916)
+
+[node name="Marker2D10" type="Marker2D" parent="Team2Positions" index="1"]
+position = Vector2(1375, 813)
+
+[node name="Marker2D11" type="Marker2D" parent="Team2Positions" index="2"]
+position = Vector2(1365, 1025)
+
+[node name="Marker2D12" type="Marker2D" parent="Team2Positions" index="3"]
+position = Vector2(1538, 912)
+
+[node name="TurnOrder" parent="CanvasLayer/TurnOrderControl" index="1"]
+text = "[color=#cd5c5cff]Whiskey Neat12[/color]"
+
+[node name="TimeSlider" parent="CanvasLayer" index="6"]
+metadata/_edit_group_ = true
+
+[node name="MatchLabel" type="RichTextLabel" parent="CanvasLayer" index="7"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -288.0
+offset_top = 25.0
+offset_right = 1.0
+offset_bottom = 48.0
+grow_horizontal = 0
+size_flags_horizontal = 0
+theme = ExtResource("3_s5ut5")
+bbcode_enabled = true
+text = "[center]Team 8 vs Team 9[/center]"
+scroll_active = false
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer" index="8"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -230.0
+offset_top = 34.0
+offset_right = 233.0
+offset_bottom = 74.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TournamentRoundLabel" type="Label" parent="CanvasLayer/PanelContainer" index="0"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Semifinals"
+horizontal_alignment = 1
+vertical_alignment = 1

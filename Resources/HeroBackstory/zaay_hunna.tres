@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="HeroBackstory" load_steps=2 format=3 uid="uid://dbo0skxby3a1u"]
+
+[ext_resource type="Script" path="res://Resources/hero_backstory.gd" id="1_3corr"]
+
+[resource]
+script = ExtResource("1_3corr")
+first_name = "Zaay"
+last_name = "Hunna"
+color = Color(0.960784, 0.827451, 0.913725, 1)
+home_town = "Chennai"

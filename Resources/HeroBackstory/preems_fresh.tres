@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="HeroBackstory" load_steps=2 format=3 uid="uid://jlarvpilhx3p"]
+
+[ext_resource type="Script" path="res://Resources/hero_backstory.gd" id="1_rw1jx"]
+
+[resource]
+script = ExtResource("1_rw1jx")
+first_name = "Preems"
+last_name = "Fresh"
+color = Color(0.0941176, 0.270588, 0.858824, 1)
+home_town = "Incheon"

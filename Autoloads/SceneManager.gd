@@ -93,7 +93,6 @@ func _add_loading_screen(transition_type:String="fade_to_black"):
 ## [b][color=plum]scene_to_unload[/color][/b] - [Node] scene you're unloading, leave null to skip unloading step thought YRMV - use with caution[br]
 ## [b][color=plum]transition_type[/color][/b] - [String] name of transition[br] see top of [Door] class for options
 func swap_scenes(scene_to_load:String, load_into:Node=null, scene_to_unload:Node=null, transition_type:String="fade_to_black") -> void:
-	
 	if _loading_in_progress:
 		push_warning("SceneManager is already loading something")
 		return
@@ -231,8 +230,10 @@ func _on_content_finished_loading(incoming_scene) -> void:
 	
 		# Remove the old scene
 	if _scene_to_unload != null:
+		get_tree().paused = true
 		if _scene_to_unload != get_tree().root: 
 			_scene_to_unload.queue_free()
+		get_tree().paused = false
 	
 	# called right after scene is added to tree (presuming _ready has fired)
 	# ex: do some setup before player gains control (I'm using it to position the player) 
@@ -243,7 +244,7 @@ func _on_content_finished_loading(incoming_scene) -> void:
 	if _loading_screen != null:
 		_loading_screen.finish_transition()
 		
-		# Wait or loading animation to finish
+		# Wait for loading animation to finish
 		await _loading_screen.anim_player.animation_finished
 
 	# if your incoming scene implements init_scene() > call it here

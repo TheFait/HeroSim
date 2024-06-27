@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_42n3t")
-name = "The Wizard"
+first_name = "The"
+last_name = "Wizard"
 color = Color(0.94902, 0, 0, 1)
 home_town = "Somewhere Magical"

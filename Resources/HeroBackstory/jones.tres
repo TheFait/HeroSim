@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_i0kvx")
-name = "Jimothy Johnathon"
+first_name = "Jimothy"
+last_name = "Johnathon"
 color = Color(0, 0.823529, 0, 1)
 home_town = "Jersey"

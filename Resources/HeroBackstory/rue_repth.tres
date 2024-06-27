@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="HeroBackstory" load_steps=2 format=3 uid="uid://divedgir7ck85"]
+
+[ext_resource type="Script" path="res://Resources/hero_backstory.gd" id="1_c6eg8"]
+
+[resource]
+script = ExtResource("1_c6eg8")
+first_name = "Rue"
+last_name = "Repth"
+color = Color(0.772549, 0.854902, 0.192157, 1)
+home_town = "Addis Ababa"

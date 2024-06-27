@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_xfhyd")
-name = "Punches McGee"
+first_name = "Punches"
+last_name = "McGee"
 color = Color(0.6, 0.576471, 0.2, 1)
 home_town = "Somewhere Texas"

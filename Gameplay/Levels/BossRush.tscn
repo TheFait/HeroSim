@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://lbt3jf4bkahf"]
+
+[ext_resource type="PackedScene" uid="uid://dlrq4g51e2lc3" path="res://Gameplay/Levels/Level.tscn" id="1_shqnm"]
+[ext_resource type="Script" path="res://Gameplay/Levels/BossRush.gd" id="2_rhwi2"]
+
+[node name="BossRush" instance=ExtResource("1_shqnm")]
+script = ExtResource("2_rhwi2")
+team1_color = Color(0.803922, 0.360784, 0.360784, 1)
+team2_color = Color(0.117647, 0.564706, 1, 1)
+
+[node name="Layout1" type="Node" parent="Team1Positions" index="0"]
+
+[node name="Marker2D5" type="Marker2D" parent="Team1Positions/Layout1" index="0"]
+position = Vector2(164, 1004)
+
+[node name="Marker2D6" type="Marker2D" parent="Team1Positions/Layout1" index="1"]
+position = Vector2(387, 1004)
+
+[node name="Marker2D7" type="Marker2D" parent="Team1Positions/Layout1" index="2"]
+position = Vector2(612, 1004)
+
+[node name="Marker2D8" type="Marker2D" parent="Team1Positions/Layout1" index="3"]
+position = Vector2(818, 1004)
+
+[node name="Marker2D9" type="Marker2D" parent="Team1Positions/Layout1" index="4"]
+position = Vector2(285, 809)
+
+[node name="Marker2D10" type="Marker2D" parent="Team1Positions/Layout1" index="5"]
+position = Vector2(508, 809)
+
+[node name="Marker2D11" type="Marker2D" parent="Team1Positions/Layout1" index="6"]
+position = Vector2(733, 809)
+
+[node name="Marker2D12" type="Marker2D" parent="Team1Positions/Layout1" index="7"]
+position = Vector2(939, 809)
+
+[node name="Marker2D" type="Marker2D" parent="Team2Positions" index="0"]
+position = Vector2(1502, 925)
+
+[node name="Team1Attacker" parent="." index="4"]
+position = Vector2(1130, 916)
+
+[node name="Team2Attacker" parent="." index="5"]
+position = Vector2(1223, 916)
+
+[node name="Panel" parent="CanvasLayer/TurnOrderControl" index="0"]
+offset_bottom = 25.6
