@@ -88,6 +88,9 @@ func _ready():
 	var heads_folder = DirAccess.open(heads_path)
 	if heads_folder:
 		for file in heads_folder.get_files():
+			print("loading file: ", file)
+			if (file.get_extension() == "import"):
+				file = file.replace('.import', '')
 			if (file.get_extension() == "png"):
 				var head = load(heads_path + "/" + file)
 				heads.push_back(head)
@@ -97,6 +100,9 @@ func _ready():
 	var bodies_folder = DirAccess.open(bodies_path)
 	if bodies_folder:
 		for file in bodies_folder.get_files():
+			print("loading file: ", file)
+			if (file.get_extension() == "import"):
+				file = file.replace('.import', '')
 			if (file.get_extension() == "png"):
 				var body = load(bodies_path + "/" + file)
 				bodies.push_back(body)
@@ -107,6 +113,8 @@ func _ready():
 	var stat_block_folder = DirAccess.open(stat_block_path)
 	if stat_block_folder:
 		for file in stat_block_folder.get_files():
+			if (file.get_extension() == "remap"):
+				file = file.replace('.remap', '')
 			var stat_block = load(stat_block_path + "/" + file)
 			stat_blocks.push_back(stat_block)
 			
@@ -116,6 +124,8 @@ func _ready():
 	var backstory_folder = DirAccess.open(backstory_path)
 	if backstory_folder:
 		for file in backstory_folder.get_files():
+			if (file.get_extension() == "remap"):
+				file = file.replace('.remap', '')
 			var backstory = load(backstory_path + "/" + file)
 			backstories.push_back(backstory)
 	

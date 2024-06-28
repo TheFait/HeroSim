@@ -32,6 +32,8 @@ func init_scene():
 	var background_folder = DirAccess.open(background_path)
 	if background_folder:
 		for file in background_folder.get_files():
+			if (file.get_extension() == "import"):
+				file = file.replace('.import', '')
 			if (file.get_extension() == "png"):
 				var background_file = load(background_path + "/" + file)
 				backgrounds.push_back(background_file)
@@ -60,24 +62,24 @@ func init_scene():
 	await game_timeout()
 	var results2:Array = await playMatch(league[2],league[3])
 	print_matches_results(results2)
-	set_ticker_message("Next match coming up soon")
+	attack_name.text = "Next match coming up soon"
 	await game_timeout()
 	var results3:Array = await playMatch(league[4],league[5])
 	print_matches_results(results3)
-	set_ticker_message("Next match coming up soon")
+	attack_name.text = "Next match coming up soon"
 	await game_timeout()
 	var results4:Array = await playMatch(league[6],league[7])
 	print_matches_results(results4)
-	set_ticker_message("Next match coming up soon")
+	attack_name.text = "Here come the semifinals"
 	await game_timeout()
 	tournament_round_label.text = "Semifinals"
 	var results5:Array = await playMatch(results1[0], results2[0])
 	print_matches_results(results5)
-	set_ticker_message("Next match coming up soon")
+	attack_name.text = "Next match coming up soon"
 	await game_timeout()
 	var results6:Array = await playMatch(results3[0], results4[0])
 	print_matches_results(results6)
-	set_ticker_message("Next match coming up soon")
+	attack_name.text = "The Finals are starting soon!"
 	await game_timeout()
 	tournament_round_label.text = "Finals"
 	var results7:Array = await playMatch(results5[0], results6[0])

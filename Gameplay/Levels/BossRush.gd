@@ -20,6 +20,8 @@ func init_scene():
 	var background_folder = DirAccess.open(background_path)
 	if background_folder:
 		for file in background_folder.get_files():
+			if (file.get_extension() == "import"):
+				file = file.replace('.import', '')
 			if (file.get_extension() == "png"):
 				var background_file = load(background_path + "/" + file)
 				backgrounds.push_back(background_file)
