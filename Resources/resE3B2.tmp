@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://rs3c2ntdbd2c"]
+
+[ext_resource type="Script" path="res://Resources/ResourceGenerator.gd" id="1_n0mrh"]
+[ext_resource type="Texture2D" uid="uid://dhxcsbbjlocqc" path="res://Assets/Images/Backgrounds/Cave.png" id="2_aeqqr"]
+
+[node name="ResourceGenerator" type="Node2D"]
+script = ExtResource("1_n0mrh")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/PanelContainer"]
+modulate = Color(1, 1, 1, 0.317647)
+layout_mode = 2
+texture = ExtResource("2_aeqqr")
+
+[node name="Generators" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -281.5
+offset_top = -189.0
+offset_right = 281.5
+offset_bottom = 189.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FirstName" type="Button" parent="CanvasLayer/Generators"]
+layout_mode = 2
+text = "Generate First Names"
+
+[node name="LastName" type="Button" parent="CanvasLayer/Generators"]
+layout_mode = 2
+text = "Generate Last Names"
+
+[node name="Heroes" type="Button" parent="CanvasLayer/Generators"]
+layout_mode = 2
+text = "Generate Heroes"
+
+[connection signal="pressed" from="CanvasLayer/Generators/FirstName" to="." method="_on_first_name_pressed"]
+[connection signal="pressed" from="CanvasLayer/Generators/LastName" to="." method="_on_last_name_pressed"]
+[connection signal="pressed" from="CanvasLayer/Generators/Heroes" to="." method="_on_heroes_pressed"]

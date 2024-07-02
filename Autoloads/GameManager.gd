@@ -8,13 +8,12 @@ var full_league:Array[Team] = []
 var heads = []
 var bodies = []
 var stat_blocks:Array = []
-var backstories = []
 var time_modifier:int = 1
 var skip_animations:bool = false
+var hero_names:Array[String]
+var team_names:Array[String]
 
 func generate_league() -> Array[Team]:
-	var available_backstories = backstories.duplicate()
-	available_backstories.shuffle()
 	full_league.clear()
 	
 	var team_colors = []
@@ -25,9 +24,13 @@ func generate_league() -> Array[Team]:
 	#shuffle random colors
 	team_colors.shuffle()
 	
+	# var to track which player we're on
+	var player_number:int = 0
+	team_names.shuffle()
+	
 	for team_number in LEAGUE_TEAMS:
 		var team = Team.new()
-		team.team_name = str(team_number, "'s Heroes")
+		team.team_name = str(team_names[team_number])
 		var player_array:Array[Hero] = []
 		team.heroes = player_array
 		team.wins = 0
@@ -36,17 +39,23 @@ func generate_league() -> Array[Team]:
 		team.team_color = Color.from_hsv(team_colors[team_number], 1, 1)
 		
 		for i in int(LEAGUE_PLAYERS / LEAGUE_TEAMS):
+			
 			var hero:Hero = preload("res://Gameplay/Heroes/hero.tscn").instantiate()
 			hero.stat_block = stat_blocks.pick_random()
 			#TODO Make this unique when you have enough backstories
 			#hero.backstory = available_backstories.pop_back()
-			hero.backstory = backstories.pick_random()
+			var backstory = HeroBackstory.new()
+			var full_name:Array = hero_names[player_number].split(" ")			
+			backstory.first_name = full_name[0]
+			backstory.last_name = full_name[1]
+			hero.backstory = backstory
 			hero.team = (i % LEAGUE_TEAMS) + 1
 			hero.setup()
 			#print("generate_league: ", hero.get_hero_name(), " the ", hero.stat_block.class_title, ", speed ", hero.stat_block.speed)
 			hero.load_graphics(bodies.pick_random(), heads.pick_random())
 			team.heroes.push_back(hero)
 			all_heroes.push_back(hero)
+			player_number += 1
 		
 		
 		full_league.push_back(team)
@@ -77,7 +86,11 @@ func generate_monster() -> Hero:
 	hero.stat_block = stat_blocks.pick_random()
 	#TODO Make this unique when you have enough backstories
 	#hero.backstory = available_backstories.pop_back()
-	hero.backstory = backstories.pick_random()
+	var backstory = HeroBackstory.new()
+	var full_name:Array = hero_names.pick_random().split(" ")			
+	backstory.first_name = full_name[0]
+	backstory.last_name = full_name[1]
+	hero.backstory = backstory
 	hero.team = -1
 	hero.setup()
 	return hero
@@ -117,17 +130,6 @@ func _ready():
 				file = file.replace('.remap', '')
 			var stat_block = load(stat_block_path + "/" + file)
 			stat_blocks.push_back(stat_block)
-			
-	
-	# Load all backstories
-	var backstory_path = "res://Resources/HeroBackstory/"
-	var backstory_folder = DirAccess.open(backstory_path)
-	if backstory_folder:
-		for file in backstory_folder.get_files():
-			if (file.get_extension() == "remap"):
-				file = file.replace('.remap', '')
-			var backstory = load(backstory_path + "/" + file)
-			backstories.push_back(backstory)
 	
 	# Load all abilities
 	#var abilities = []
@@ -137,6 +139,80 @@ func _ready():
 		#for file in ability_folder.get_files():
 			#var ability = load(ability_path + "/" + file)
 			#abilities.push_back(ability)
+			
+	
+	# Load all first names
+	var first_names:Array = []
+	var first_name_file = FileAccess.open("res://Resources/CSVs/first_names.csv", FileAccess.READ)
+	
+	while !first_name_file.eof_reached():
+		var data_set = Array(first_name_file.get_csv_line())
+		print(data_set)
+		for first_name in data_set:
+			first_names.push_back(first_name)
+			print("Pushing firstname: ", first_name)	 
+	first_name_file.close()
+	
+	# Load all last names
+	var last_names:Array = []
+	var last_name_file = FileAccess.open("res://Resources/CSVs/last_names.csv", FileAccess.READ)
+	
+	while !last_name_file.eof_reached():
+		var data_set = Array(last_name_file.get_csv_line())
+		print(data_set)
+		for last_name in data_set:
+			last_names.push_back(last_name)
+			print("Pushing firstname: ", last_name)	 
+	last_name_file.close()
+	
+	# Generate player names with no duplicates
+	for i in LEAGUE_PLAYERS:
+		var hero_name:String
+		# TODO: Add a check here to stop the case where we are generating more players than unique combinations of names and loop infinitely
+		# keep generating names while they aren't unique
+		while(true):
+			hero_name = str(first_names.pick_random(), " ", last_names.pick_random())
+			print("Tried to create: ", hero_name)
+			if !hero_names.has(hero_name):
+				print("Successfully added name: ", hero_name)
+				break
+			print("Failed to add name: ", hero_name)
+		hero_names.push_back(hero_name)
+		
+	# Generate Team Names
+	var team_name_file = FileAccess.open("res://Resources/CSVs/team_names.csv", FileAccess.READ)
+	var team_adj:Array
+	var team_noun1:Array
+	var team_noun2:Array
+	
+	while !team_name_file.eof_reached():
+		team_adj = Array(team_name_file.get_csv_line())
+		print(team_adj)
+		team_noun1 = Array(team_name_file.get_csv_line())
+		print(team_noun1)
+		team_noun2 = Array(team_name_file.get_csv_line())
+		print(team_noun2)
+	team_name_file.close()
+	
+	for j in LEAGUE_TEAMS:
+		var team_name:String
+		while(true):
+			var name_pattern:int = randi_range(1,3)
+			match name_pattern:
+				1:
+					team_name = str(team_adj.pick_random(), " ", team_noun1.pick_random(), " ", team_noun2.pick_random())
+				2:
+					team_name = str(team_adj.pick_random(), " ", team_noun1.pick_random())
+				3:
+					team_name = str(team_adj.pick_random(), " ", team_noun2.pick_random())
+			Globals.print_with_timestamp(str("Trying to generate team name: ",team_name))
+			if !team_names.has(team_name):
+				team_names.push_back(team_name)
+				Globals.print_with_timestamp(str("Successfully added name: ", team_name))
+				break
+			Globals.print_with_timestamp(str("Failed to generate: ", team_name, ". Duplicate found!"))
+	
+	print (team_names)
 
 func shuffle_heroes() -> Array[Team]:
 	# make array of all players

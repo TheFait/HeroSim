@@ -54,3 +54,7 @@ func open_settings_menu():
 		get_tree().root.add_child(settings_menu)
 	else:
 		push_warning('settings menu already exists in this scene')
+
+func print_with_timestamp(message):
+	var timestamp_message = str(Time.get_datetime_string_from_system(false,true)," ", message)
+	print(timestamp_message)

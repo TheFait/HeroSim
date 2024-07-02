@@ -50,6 +50,7 @@ size_flags_horizontal = 0
 theme = ExtResource("3_s5ut5")
 bbcode_enabled = true
 text = "[center]Team 8 vs Team 9[/center]"
+fit_content = true
 scroll_active = false
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer" index="8"]

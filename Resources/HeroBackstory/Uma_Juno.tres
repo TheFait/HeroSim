@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="HeroBackstory" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Resources/hero_backstory.gd" id="1_o6ocd"]
+
+[resource]
+script = ExtResource("1_o6ocd")
+first_name = "Uma"
+last_name = "Juno"
+color = Color(0, 0, 0, 1)
+home_town = "Unset"

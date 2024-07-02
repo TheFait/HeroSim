@@ -175,7 +175,7 @@ func playMatch(p_team1:Team, p_team2:Team):
 				attack_name.text = ability_name
 				
 				# Use ability on target
-				print("Hero ", hero.get_hero_name(), " using ability ", ability_name, " on: ", target.get_hero_name())
+				Globals.print_with_timestamp(str("Hero ", hero.get_hero_name(), " using ability ", ability_name, " on: ", target.get_hero_name()))
 				update_ticker_message(hero,target)
 				#ticker.text = str("Hero ", hero.get_hero_name(), " targets ", target.get_hero_name())
 				
@@ -231,7 +231,9 @@ func display_match_label(team1_name:String, team1_color:Color, team2_name:String
 	match_label.push_color(team1_color)
 	match_label.append_text(team1_name)
 	match_label.pop()
+	match_label.newline()
 	match_label.append_text(" vs ")
+	match_label.newline()
 	match_label.push_color(team2_color)
 	match_label.append_text(team2_name)
 	match_label.pop()
