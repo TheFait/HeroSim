@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://slccugjb2n7b"]
+
+[ext_resource type="Script" path="res://Gameplay/Abilities/Components/target_effect.gd" id="1_rxbpw"]
+
+[node name="TargetEffect" type="Node"]
+script = ExtResource("1_rxbpw")

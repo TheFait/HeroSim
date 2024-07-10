@@ -1,14 +1,16 @@
-[gd_scene load_steps=54 format=3 uid="uid://ddmrwwtg3w072"]
+[gd_scene load_steps=56 format=3 uid="uid://ddmrwwtg3w072"]
 
 [ext_resource type="Script" path="res://Gameplay/Heroes/hero.gd" id="1_rdjod"]
-[ext_resource type="Texture2D" uid="uid://dubu2k2j368jb" path="res://Assets/Images/Hero/single_char.png" id="2_76d1d"]
+[ext_resource type="Texture2D" uid="uid://bgfbae6yw01n4" path="res://Assets/Images/Hero/single_char.png" id="2_76d1d"]
 [ext_resource type="Theme" uid="uid://br3hpq3vcr245" path="res://Menus/Themes/base_theme.tres" id="3_2hg2u"]
 [ext_resource type="PackedScene" uid="uid://bljetr4b3dd31" path="res://Menus/health_bar.tscn" id="4_65rll"]
-[ext_resource type="Texture2D" uid="uid://dkhi4fvnpl624" path="res://Assets/Images/Hero/sheets/base.png" id="6_26dud"]
-[ext_resource type="Texture2D" uid="uid://bs6yg67gjmwmx" path="res://Assets/Images/Hero/sheets/body/outfit2.png" id="7_vkf35"]
-[ext_resource type="Texture2D" uid="uid://1b5emb1cisb8" path="res://Assets/Images/Hero/sheets/head/hat.png" id="8_4bj57"]
-[ext_resource type="Texture2D" uid="uid://bvexkfpxu7xdn" path="res://Assets/Images/Hero/sheets/body/outfit1.png" id="9_npyp5"]
-[ext_resource type="Texture2D" uid="uid://oxrc4te02h3j" path="res://Assets/Images/Hero/sheets/head/hair.png" id="10_nqeqt"]
+[ext_resource type="Texture2D" uid="uid://br53tydxfm3ud" path="res://Assets/Images/Hero/sheets/base.png" id="6_26dud"]
+[ext_resource type="Texture2D" uid="uid://c08i1ejip2grg" path="res://Assets/Images/Hero/sheets/body/outfit2.png" id="7_vkf35"]
+[ext_resource type="Texture2D" uid="uid://bt20pg4syk4sc" path="res://Assets/Images/Hero/sheets/head/hat.png" id="8_4bj57"]
+[ext_resource type="Texture2D" uid="uid://dnfpv3wnbemqr" path="res://Assets/Images/Hero/sheets/body/outfit1.png" id="9_npyp5"]
+[ext_resource type="PackedScene" uid="uid://re58feix351s" path="res://Gameplay/Abilities/fireball.tscn" id="10_4eswk"]
+[ext_resource type="Texture2D" uid="uid://c1uxln68jn6hj" path="res://Assets/Images/Hero/sheets/head/hair.png" id="10_nqeqt"]
+[ext_resource type="PackedScene" uid="uid://dw4l0xnpwmoxq" path="res://Gameplay/Abilities/heal.tscn" id="11_j7qdx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_26t30"]
 atlas = ExtResource("6_26dud")
@@ -602,3 +604,9 @@ texture = ExtResource("10_nqeqt")
 hframes = 8
 vframes = 8
 frame = 49
+
+[node name="Abilities" type="Node" parent="."]
+
+[node name="Fireball" parent="Abilities" instance=ExtResource("10_4eswk")]
+
+[node name="Heal" parent="Abilities" instance=ExtResource("11_j7qdx")]

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://clr56wh8cq5jm"]
+
+[ext_resource type="Script" path="res://Gameplay/Abilities/ability_base.gd" id="1_bm771"]
+[ext_resource type="PackedScene" uid="uid://8gaitsgis4fj" path="res://Gameplay/Abilities/Components/ability_display.tscn" id="4_s2yfp"]
+
+[node name="Ability" type="Node2D"]
+script = ExtResource("1_bm771")
+
+[node name="AbilityDisplay" parent="." instance=ExtResource("4_s2yfp")]

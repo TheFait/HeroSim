@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dojbfo710gkfk"]
+
+[ext_resource type="Script" path="res://Gameplay/Abilities/Components/caster_effect.gd" id="1_gbly3"]
+
+[node name="CasterEffect" type="Node"]
+script = ExtResource("1_gbly3")
