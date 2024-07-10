@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgqa4202mn7fd"]
+
+[ext_resource type="Script" path="res://Gameplay/Abilities/Components/damage_component.gd" id="1_setmj"]
+
+[node name="DamageComponent" type="Node"]
+script = ExtResource("1_setmj")

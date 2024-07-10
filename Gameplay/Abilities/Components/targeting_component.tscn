@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3hxr5lke330j"]
+
+[ext_resource type="Script" path="res://Gameplay/Abilities/Components/targeting_component.gd" id="1_ifr2u"]
+
+[node name="TargetingComponent" type="Node"]
+script = ExtResource("1_ifr2u")

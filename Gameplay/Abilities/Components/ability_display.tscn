@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://8gaitsgis4fj"]
+
+[ext_resource type="Script" path="res://Gameplay/Abilities/Components/ability_display.gd" id="1_htpsi"]
+
+[node name="AbilityDisplay" type="Node"]
+script = ExtResource("1_htpsi")

@@ -5,14 +5,27 @@ extends ProgressBar
 
 var health:int = 0 :
 	set(p_health):
-		health = p_health
-		value_display.text = str(health)
-		value = health
-		if (is_inside_tree()):
-			var tween = get_tree().create_tween()
-			tween.set_ease(Tween.EASE_IN)
-			tween.set_trans(Tween.TRANS_QUAD)
-			tween.tween_property(damage_bar,"value",p_health,(1.5/GameManager.time_modifier))
+		# Split logic if we're healing or taking damage
+		if (p_health > health): #healing
+			health = p_health
+			value_display.text = str(health)
+			#set the underlying health, tween the actual
+			damage_bar.value = health
+			if (is_inside_tree()):
+				var tween = get_tree().create_tween()
+				tween.set_ease(Tween.EASE_IN)
+				tween.set_trans(Tween.TRANS_QUAD)
+				tween.tween_property(self,"value",p_health,(1.5/GameManager.time_modifier))
+		else: #taking damage
+			health = p_health
+			value_display.text = str(health)
+			#set the actual health, tween the underlying
+			value = health
+			if (is_inside_tree()):
+				var tween = get_tree().create_tween()
+				tween.set_ease(Tween.EASE_IN)
+				tween.set_trans(Tween.TRANS_QUAD)
+				tween.tween_property(damage_bar,"value",p_health,(1.5/GameManager.time_modifier))
 
 func init_health(_health):
 	health = _health

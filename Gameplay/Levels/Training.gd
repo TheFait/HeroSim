@@ -157,35 +157,30 @@ func playMatch(p_team1:Team, p_team2:Team):
 					hero.play_animation_player("run")
 					await tween.finished
 				
-				# choose random target			
-				var target:Hero
-				# Loop until we find valid target
-				var valid_target_selected:bool = false
-				while (!valid_target_selected):
-					
-					target = combatants.pick_random()
-					if hero.team != target.team and target.alive:
-						valid_target_selected = true
-				
 				# Choose a random ability
-				var ability = hero.use_ability()
-				var ability_name = ability.name
+				#var ability = hero.use_ability()
+				#var ability:AbilityBase = hero.choose_ability()
+				#var ability_name = ability.get_ability_name()
 				#var ability_name = hero.stat_block.abilities[0].name
 				
+				var turn_output:Array = hero.take_turn(self)
+				var ability_name = turn_output[2].get_ability_name()
+				var targets = turn_output[1][0] as Hero
 				attack_name.text = ability_name
 				
+				
 				# Use ability on target
-				Globals.print_with_timestamp(str("Hero ", hero.get_hero_name(), " using ability ", ability_name, " on: ", target.get_hero_name()))
-				update_ticker_message(hero,target)
+				Globals.print_with_timestamp(str("Hero ", hero.get_hero_name(), " using ability ", ability_name, " on: ", targets.get_hero_name()))
+				update_ticker_message(hero,targets)
 				#ticker.text = str("Hero ", hero.get_hero_name(), " targets ", target.get_hero_name())
 				
-				target.take_damage(hero.stat_block.abilities[0].damage)
+				#target.take_damage(hero.stat_block.abilities[0].damage)
 				
 				if (!GameManager.skip_animations):
 					await get_tree().create_timer((1.0/GameManager.time_modifier)).timeout
 				
-				if target.alive == false:
-					var target_team = target.team
+				if targets.alive == false:
+					var target_team = targets.team
 					var anyone_alive:bool = false
 					if target_team == 1:
 						# anyone in team1 alive?
@@ -224,6 +219,51 @@ func playMatch(p_team1:Team, p_team2:Team):
 			
 		# TODO re-evaluate the speed after every round and repeat
 		combatants.sort_custom(sort_heroes_by_speed)
+
+func get_targets_friendly(caster:Hero, num_targets:int, self_valid:bool = false) -> Array[Hero]:
+	var return_heroes:Array[Hero] = []
+	var caster_team:Team
+	if caster.team == 1:
+		caster_team = team1
+	else:
+		caster_team = team2
+		
+	var valid_target:bool = false
+	
+	for i in num_targets:
+		#TODO - Put checks to make sure this can't infinite loop
+		# Build list of valid targets first, then pick one
+		while (!valid_target):
+			var target = caster_team.heroes.pick_random()
+			if (target==caster and self_valid and return_heroes.find(target) == -1 and target.alive):
+				valid_target = true
+				return_heroes.push_back(target)
+			elif (target!=caster and return_heroes.find(target) == -1 and target.alive):
+				valid_target = true
+				return_heroes.push_back(target)
+	
+	return return_heroes
+	
+func get_targets_enemy(caster:Hero, num_targets:int) -> Array[Hero]:
+	var return_heroes:Array[Hero] = []
+	var caster_team:Team
+	if caster.team == 1:
+		caster_team = team2
+	else:
+		caster_team = team1
+		
+	var valid_target:bool = false
+	
+	for i in num_targets:
+		#TODO - Put checks to make sure this can't infinite loop
+		# Build list of valid targets first, then pick one
+		while (!valid_target):
+			var target = caster_team.heroes.pick_random()
+			if ( return_heroes.find(target) == -1 and target.alive):
+				valid_target = true
+				return_heroes.push_back(target)
+	
+	return return_heroes
 
 func display_match_label(team1_name:String, team1_color:Color, team2_name:String, team2_color:Color):
 	match_label.clear()

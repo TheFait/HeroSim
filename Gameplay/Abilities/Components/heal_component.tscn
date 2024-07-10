@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://vpjkp27sysjb"]
+
+[ext_resource type="Script" path="res://Gameplay/Abilities/Components/heal_component.gd" id="1_enok3"]
+
+[node name="HealComponent" type="Node"]
+script = ExtResource("1_enok3")
