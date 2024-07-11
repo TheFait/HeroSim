@@ -6,3 +6,5 @@
 script = ExtResource("1_l1e2f")
 name = "Stab"
 damage = 18
+self_effect_path = "res://Assets/ParticleEffects/blast.tscn"
+target_effect_path = "res://Assets/ParticleEffects/sparkle.tscn"

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsqa6f83p5ikc"]
+
+[ext_resource type="Script" path="res://Gameplay/Heroes/Ability.gd" id="1_yefe6"]
+
+[node name="Ability" type="Node"]
+script = ExtResource("1_yefe6")

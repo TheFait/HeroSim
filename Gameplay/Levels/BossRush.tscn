@@ -42,6 +42,3 @@ position = Vector2(1130, 916)
 
 [node name="Team2Attacker" parent="." index="5"]
 position = Vector2(1223, 916)
-
-[node name="Panel" parent="CanvasLayer/TurnOrderControl" index="0"]
-offset_bottom = 25.6

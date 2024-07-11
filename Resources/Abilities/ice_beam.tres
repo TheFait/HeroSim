@@ -6,3 +6,5 @@
 script = ExtResource("1_22gll")
 name = "Ice Beam"
 damage = 23
+self_effect_path = "res://Assets/ParticleEffects/blast.tscn"
+target_effect_path = "res://Assets/ParticleEffects/stars_impact.tscn"

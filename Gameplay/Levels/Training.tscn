@@ -31,12 +31,6 @@ position = Vector2(1365, 1025)
 [node name="Marker2D12" type="Marker2D" parent="Team2Positions" index="3"]
 position = Vector2(1538, 912)
 
-[node name="TurnOrder" parent="CanvasLayer/TurnOrderControl" index="1"]
-text = "[color=#cd5c5cff]Whiskey Neat12[/color]"
-
-[node name="TimeSlider" parent="CanvasLayer" index="6"]
-metadata/_edit_group_ = true
-
 [node name="MatchLabel" type="RichTextLabel" parent="CanvasLayer" index="7"]
 anchors_preset = 1
 anchor_left = 1.0
@@ -58,9 +52,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -230.0
-offset_top = 34.0
+offset_top = 45.0
 offset_right = 233.0
-offset_bottom = 74.0
+offset_bottom = 110.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4

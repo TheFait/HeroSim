@@ -19,6 +19,11 @@ var winning_heroes:Array[Hero]
 # From BossRush, should we shuffle the players up or make new players
 var shuffle_teams:bool = false
 
+func _ready():
+	$CanvasLayer/RandomOutfitButton.connect("pressed", _on_random_outfit_button_pressed)
+	$CanvasLayer/RandomBGButton.connect("pressed", _on_change_bg_pressed)
+	$CanvasLayer/SwapLevel.connect("pressed", _on_swap_level_pressed)
+
 func init_scene():
 	empty_heroes()
 	
@@ -161,6 +166,8 @@ func playMatch(p_team1:Team, p_team2:Team):
 				#var ability = hero.use_ability()
 				#var ability:AbilityBase = hero.choose_ability()
 				#var ability_name = ability.get_ability_name()
+				var ability_used:Ability = hero.use_ability()				
+				#var ability_name:String = ability_used.name
 				#var ability_name = hero.stat_block.abilities[0].name
 				
 				var turn_output:Array = hero.take_turn(self)
@@ -175,6 +182,7 @@ func playMatch(p_team1:Team, p_team2:Team):
 				#ticker.text = str("Hero ", hero.get_hero_name(), " targets ", target.get_hero_name())
 				
 				#target.take_damage(hero.stat_block.abilities[0].damage)
+				#hero.attack(target)
 				
 				if (!GameManager.skip_animations):
 					await get_tree().create_timer((1.0/GameManager.time_modifier)).timeout
@@ -279,7 +287,7 @@ func display_match_label(team1_name:String, team1_color:Color, team2_name:String
 	match_label.pop()
 	#match_label.append_text("[/center]")
 
-func _on_button_pressed():
+func _on_change_bg_pressed():
 	current_background = (current_background + 1) % backgrounds.size()
 	background.texture = backgrounds[current_background]
 

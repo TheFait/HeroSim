@@ -6,3 +6,5 @@
 script = ExtResource("1_6qjf1")
 name = "Punch"
 damage = 13
+self_effect_path = "res://Assets/ParticleEffects/blast.tscn"
+target_effect_path = "res://Assets/ParticleEffects/stars_impact.tscn"

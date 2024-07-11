@@ -9,7 +9,7 @@ class_name Level
 @onready var attack_name = $CanvasLayer/AttackNameControl/Panel/CenterContainer/AttackName
 @onready var ticker = $CanvasLayer/TickerControl/Panel/Ticker
 @onready var background = $Background
-@onready var turn_order = $CanvasLayer/TurnOrderControl/TurnOrder
+@onready var turn_order = $CanvasLayer/TurnOrderControl/PanelContainer/TurnOrder
 @onready var time_slider = $CanvasLayer/TimeSlider
 @onready var teams_label = $CanvasLayer/TeamsPanelContainer/TeamsLabel
 
@@ -20,6 +20,7 @@ var level_name
 
 func _ready():
 	time_slider.value = GameManager.time_modifier
+	
 
 func sort_heroes_by_speed(a:Hero, b:Hero):
 	var speed1 = a.stat_block.speed
@@ -51,7 +52,7 @@ func set_ticker_for_winner(winner:Team):
 	ticker.pop()
 
 func _on_swap_level_pressed():
-	#print("swapping level: ", level_name)
+	print("swapping level: ", level_name)
 	match level_name:
 		"training":
 			#get_tree().paused = true

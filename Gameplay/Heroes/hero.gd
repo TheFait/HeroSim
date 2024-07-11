@@ -10,6 +10,7 @@ var max_health:int
 var health_mult:int
 var wins:int = 0
 var skip_turn:bool = false
+var current_ability:Ability
 
 @onready var name_label = $NameLabel
 @onready var hero_icon = $HeroIcon
@@ -18,6 +19,7 @@ var skip_turn:bool = false
 @onready var static_sprites = $StaticSprites
 @onready var health_bar := $HeroHealth
 @onready var abilities = $Abilities
+@onready var attack_effect = $StaticSprites/AttackEffect
 
 
 var starting_position:Vector2
@@ -27,19 +29,13 @@ var body_texture:Texture2D
 var head_texture:Texture2D
 
 
-func _ready():
-	pass
-
-func _process(_delta):
-	pass
-
 func setup():
 	if backstory:
 		char_name = backstory.get_full_name()
 
 func set_color(p_color:Color):
 	name_label.modulate = p_color
-	health_bar.set_color(p_color)
+	#health_bar.set_color(p_color)
 	team_color = p_color
 
 func setup_for_battle(p_color:Color, p_healthMult:int=1):
@@ -111,7 +107,8 @@ func use_ability() -> Ability:
 	var target_comp = ability.find_child("TargetingComponent")
 	print(target_comp)
 	
-	return stat_block.abilities.pick_random()
+	current_ability = stat_block.abilities.pick_random()
+	return current_ability
 
 func choose_ability() -> AbilityBase:
 	return abilities.get_children().pick_random()
@@ -180,3 +177,20 @@ func take_turn(caller:Level) -> Array:
 	
 	return_array = [self, targets, ability]
 	return return_array
+
+# Attacks the target, returns the ability used
+func attack(target:Hero):
+	if(current_ability.self_effect_path != ""):
+		var self_effect:Sprite2D = load(current_ability.self_effect_path).instantiate()
+		attack_effect.add_child(self_effect)
+	
+	animation_player.play("attack")
+	await animation_player.animation_finished
+	
+	target.take_damage(current_ability.damage)
+	
+	if(current_ability.target_effect_path != ""):
+		var target_effect:Sprite2D = load(current_ability.target_effect_path).instantiate()
+		target.add_child(target_effect)
+		
+	

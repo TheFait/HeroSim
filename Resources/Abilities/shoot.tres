@@ -6,3 +6,5 @@
 script = ExtResource("1_2mn8m")
 name = "Arrow Shot"
 damage = 18
+self_effect_path = "res://Assets/ParticleEffects/blast.tscn"
+target_effect_path = "res://Assets/ParticleEffects/sparkle.tscn"

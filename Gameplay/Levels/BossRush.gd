@@ -9,6 +9,11 @@ var combatants:Array[Hero] = []
 var game_over:bool = false
 var round_number:int = 0
 
+func _ready():
+	$CanvasLayer/RandomOutfitButton.connect("pressed", _on_random_outfit_button_pressed)
+	$CanvasLayer/RandomBGButton.connect("pressed", _on_change_bg_pressed)
+	$CanvasLayer/SwapLevel.connect("pressed", _on_swap_level_pressed)
+
 func init_scene():
 	get_tree().paused = false
 	# Set level id
@@ -160,7 +165,7 @@ func playMatch():
 		# TODO re-evaluate the speed after every round and repeat
 		combatants.sort_custom(sort_heroes_by_speed)
 
-func _on_button_pressed():
+func _on_change_bg_pressed():
 	current_background = (current_background + 1) % backgrounds.size()
 	background.texture = backgrounds[current_background]
 

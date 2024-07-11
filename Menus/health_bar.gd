@@ -15,7 +15,7 @@ var health:int = 0 :
 				var tween = get_tree().create_tween()
 				tween.set_ease(Tween.EASE_IN)
 				tween.set_trans(Tween.TRANS_QUAD)
-				tween.tween_property(self,"value",p_health,(1.5/GameManager.time_modifier))
+				tween.tween_property(self,"value",p_health,(1/GameManager.time_modifier))
 		else: #taking damage
 			health = p_health
 			value_display.text = str(health)
@@ -25,7 +25,7 @@ var health:int = 0 :
 				var tween = get_tree().create_tween()
 				tween.set_ease(Tween.EASE_IN)
 				tween.set_trans(Tween.TRANS_QUAD)
-				tween.tween_property(damage_bar,"value",p_health,(1.5/GameManager.time_modifier))
+				tween.tween_property(damage_bar,"value",p_health,(1/GameManager.time_modifier))
 
 func init_health(_health):
 	health = _health

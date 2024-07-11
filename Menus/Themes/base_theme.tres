@@ -1,7 +1,50 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://br3hpq3vcr245"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://br3hpq3vcr245"]
 
+[ext_resource type="Texture2D" uid="uid://c4f8m77uj6ppm" path="res://Assets/Images/UI/button_down.png" id="1_0s8wh"]
+[ext_resource type="Texture2D" uid="uid://4cd66qpenm0b" path="res://Assets/Images/UI/panel.png" id="1_50wxv"]
+[ext_resource type="Texture2D" uid="uid://brdd0ko7hce0y" path="res://Assets/Images/UI/button.png" id="1_mne32"]
 [ext_resource type="FontFile" uid="uid://df15nvscyjs8c" path="res://Assets/fonts/Silver.ttf" id="1_n4igo"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s8d2o"]
+texture = ExtResource("1_0s8wh")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s0s7s"]
+texture = ExtResource("1_mne32")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rwdej"]
+texture = ExtResource("1_0s8wh")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jxbog"]
+texture = ExtResource("1_50wxv")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tlk24"]
+texture = ExtResource("1_50wxv")
+texture_margin_left = 17.0
+texture_margin_top = 17.0
+texture_margin_right = 17.0
+texture_margin_bottom = 17.0
 
 [resource]
 default_font = ExtResource("1_n4igo")
 default_font_size = 30
+Button/styles/hover = SubResource("StyleBoxTexture_s8d2o")
+Button/styles/normal = SubResource("StyleBoxTexture_s0s7s")
+Button/styles/pressed = SubResource("StyleBoxTexture_rwdej")
+Panel/styles/panel = SubResource("StyleBoxTexture_jxbog")
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_tlk24")
