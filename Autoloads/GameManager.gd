@@ -2,7 +2,7 @@ extends Node
 
 const LEAGUE_PLAYERS = 32
 const LEAGUE_TEAMS = 8
-const POSSIBLE_COLORS = 18
+const POSSIBLE_COLORS = 12
 var all_heroes:Array[Hero] = []
 var full_league:Array[Team] = []
 var heads = []
@@ -150,7 +150,7 @@ func _ready():
 		print(data_set)
 		for first_name in data_set:
 			first_names.push_back(first_name)
-			print("Pushing firstname: ", first_name)	 
+			#print("Pushing firstname: ", first_name)	 
 	first_name_file.close()
 	
 	# Load all last names
@@ -162,7 +162,7 @@ func _ready():
 		print(data_set)
 		for last_name in data_set:
 			last_names.push_back(last_name)
-			print("Pushing firstname: ", last_name)	 
+			#print("Pushing lastname: ", last_name)	 
 	last_name_file.close()
 	
 	# Generate player names with no duplicates
@@ -172,7 +172,7 @@ func _ready():
 		# keep generating names while they aren't unique
 		while(true):
 			hero_name = str(first_names.pick_random(), " ", last_names.pick_random())
-			print("Tried to create: ", hero_name)
+			#print("Tried to create: ", hero_name)
 			if !hero_names.has(hero_name):
 				print("Successfully added name: ", hero_name)
 				break
@@ -200,12 +200,12 @@ func _ready():
 			var name_pattern:int = randi_range(1,3)
 			match name_pattern:
 				1:
-					team_name = str(team_adj.pick_random(), " ", team_noun1.pick_random(), " ", team_noun2.pick_random())
+					team_name = str(team_adj.pick_random().to_pascal_case(), " ", team_noun1.pick_random().to_pascal_case(), " ", team_noun2.pick_random().to_pascal_case())
 				2:
-					team_name = str(team_adj.pick_random(), " ", team_noun1.pick_random())
+					team_name = str(team_adj.pick_random().to_pascal_case(), " ", team_noun1.pick_random().to_pascal_case())
 				3:
-					team_name = str(team_adj.pick_random(), " ", team_noun2.pick_random())
-			Globals.print_with_timestamp(str("Trying to generate team name: ",team_name))
+					team_name = str(team_adj.pick_random().to_pascal_case(), " ", team_noun2.pick_random().to_pascal_case())
+			#Globals.print_with_timestamp(str("Trying to generate team name: ",team_name))
 			if !team_names.has(team_name):
 				team_names.push_back(team_name)
 				Globals.print_with_timestamp(str("Successfully added name: ", team_name))

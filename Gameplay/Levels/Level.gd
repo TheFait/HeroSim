@@ -19,15 +19,14 @@ var current_background:int = 0
 var level_name
 
 func _ready():
-	time_slider.value = GameManager.time_modifier
-	
+	print("Time Slider: ", time_slider)
 
 func sort_heroes_by_speed(a:Hero, b:Hero):
 	var speed1 = a.stat_block.speed
 	var speed2 = b.stat_block.speed
 	return speed1 > speed2
 
-func update_ticker_message(hero:Hero, target:Hero):
+func update_ticker_message(hero:Hero, targets:Array[Hero]):
 	ticker.clear()
 	ticker.append_text("[center]")
 	ticker.append_text("Hero ")
@@ -35,9 +34,12 @@ func update_ticker_message(hero:Hero, target:Hero):
 	ticker.append_text(hero.get_hero_name())
 	ticker.pop()
 	ticker.append_text(" targets ")
-	ticker.push_color(target.team_color)
-	ticker.append_text(target.get_hero_name())
-	ticker.pop()
+	for i in targets.size():
+		ticker.push_color(targets[i].team_color)
+		ticker.append_text(targets[i].get_hero_name())
+		ticker.pop()
+		if i < targets.size()-1:
+			ticker.append_text(",")
 
 func set_ticker_message(message:String):
 	ticker.clear()
@@ -70,6 +72,7 @@ func empty_heroes():
 
 
 func _on_time_slider_value_changed(value):
+	print("Slider changed")
 	GameManager.time_modifier = value
 	if GameManager.time_modifier == 10:
 		GameManager.skip_animations = true

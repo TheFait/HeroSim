@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://be0t8xsu2rvah"]
+
+[ext_resource type="PackedScene" uid="uid://clr56wh8cq5jm" path="res://Gameplay/Abilities/ability_base.tscn" id="1_d8olb"]
+[ext_resource type="PackedScene" uid="uid://vpjkp27sysjb" path="res://Gameplay/Abilities/Components/heal_component.tscn" id="3_gt1ne"]
+[ext_resource type="PackedScene" uid="uid://slccugjb2n7b" path="res://Gameplay/Abilities/Components/target_effect.tscn" id="4_5aq7y"]
+
+[node name="MegaHeal" instance=ExtResource("1_d8olb")]
+
+[node name="AbilityDisplay" parent="." index="0"]
+ability_name = "Mega Heal"
+ability_description = "Add health to all allies"
+
+[node name="HealComponent" parent="." index="1" instance=ExtResource("3_gt1ne")]
+amount = 5.0
+
+[node name="TargetEffectComponent" parent="." index="2" instance=ExtResource("4_5aq7y")]
+effect_path = "res://Assets/ParticleEffects/sparkle.tscn"
+
+[node name="AccuracyComponent" parent="." index="3"]
+accuracy_value = 60.0
+
+[node name="TargetingComponent" parent="." index="4"]
+target_number = -1
+target_type = 2

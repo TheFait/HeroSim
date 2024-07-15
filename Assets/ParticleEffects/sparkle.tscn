@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://caqlq5q2787ad"]
 
-[ext_resource type="Texture2D" uid="uid://cstv2vs5e5vqb" path="res://Assets/Images/Particles/sparkle.png" id="1_pjfwf"]
+[ext_resource type="Texture2D" uid="uid://cgkerwqorj106" path="res://Assets/Images/Particles/sparkle.png" id="1_pjfwf"]
 
 [sub_resource type="Animation" id="Animation_ng7n8"]
 length = 0.001

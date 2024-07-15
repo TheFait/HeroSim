@@ -20,9 +20,12 @@ var winning_heroes:Array[Hero]
 var shuffle_teams:bool = false
 
 func _ready():
-	$CanvasLayer/RandomOutfitButton.connect("pressed", _on_random_outfit_button_pressed)
-	$CanvasLayer/RandomBGButton.connect("pressed", _on_change_bg_pressed)
-	$CanvasLayer/SwapLevel.connect("pressed", _on_swap_level_pressed)
+	$CanvasLayer/RandomOutfitButton.pressed.connect(_on_random_outfit_button_pressed)
+	$CanvasLayer/RandomBGButton.pressed.connect(_on_change_bg_pressed)
+	$CanvasLayer/SwapLevel.pressed.connect(_on_swap_level_pressed)
+	time_slider.value = GameManager.time_modifier
+	time_slider.value_changed.connect(_on_time_slider_value_changed)
+
 
 func init_scene():
 	empty_heroes()
@@ -42,6 +45,9 @@ func init_scene():
 			if (file.get_extension() == "png"):
 				var background_file = load(background_path + "/" + file)
 				backgrounds.push_back(background_file)
+				print("Pushed background: ", background_file)
+				
+	print("Loaded backgrounds: ", backgrounds)
 	
 	# Choose random background and set it to scene
 	current_background = randi_range(0,backgrounds.size()-1)
@@ -163,67 +169,76 @@ func playMatch(p_team1:Team, p_team2:Team):
 					await tween.finished
 				
 				# Choose a random ability
-				#var ability = hero.use_ability()
-				#var ability:AbilityBase = hero.choose_ability()
-				#var ability_name = ability.get_ability_name()
-				var ability_used:Ability = hero.use_ability()				
-				#var ability_name:String = ability_used.name
-				#var ability_name = hero.stat_block.abilities[0].name
 				
-				var turn_output:Array = hero.take_turn(self)
+				var turn_output:Array = await hero.take_turn(self)
 				var ability_name = turn_output[2].get_ability_name()
-				var targets = turn_output[1][0] as Hero
-				attack_name.text = ability_name
+				#print(turn_output)
+				var targets = turn_output[1]
 				
-				
-				# Use ability on target
-				Globals.print_with_timestamp(str("Hero ", hero.get_hero_name(), " using ability ", ability_name, " on: ", targets.get_hero_name()))
-				update_ticker_message(hero,targets)
-				#ticker.text = str("Hero ", hero.get_hero_name(), " targets ", target.get_hero_name())
-				
-				#target.take_damage(hero.stat_block.abilities[0].damage)
-				#hero.attack(target)
-				
-				if (!GameManager.skip_animations):
-					await get_tree().create_timer((1.0/GameManager.time_modifier)).timeout
-				
-				if targets.alive == false:
-					var target_team = targets.team
-					var anyone_alive:bool = false
-					if target_team == 1:
-						# anyone in team1 alive?
-						for hero_target in team1.heroes:
-							if hero_target.alive:
-								anyone_alive = true
-					if target_team == 2:
-						# anyone in team2 alive?
-						for hero_target in team2.heroes:
-							if hero_target.alive:
-								anyone_alive = true
-					if !anyone_alive:
-						game_over = true
-						var winning_team:Team
-						var losing_team:Team
-						if (hero.team == 1):
-							winning_team = team1
-							losing_team = team2
-						else:
-							winning_team = team2
-							losing_team = team1
-						set_ticker_for_winner(winning_team)
-						winning_team.wins += 1
-						losing_team.knocked_out = true
-						for member in winning_team.heroes:
-							member.wins += 1
-						return [winning_team, losing_team]
-				
-				
-				if (!GameManager.skip_animations):
-					tween.kill()
-					tween = create_tween()
-					hero.play_animation_player("walk")
-					await tween.tween_property(hero, "position", hero.starting_position,(1.0/GameManager.time_modifier)).finished
-				attack_name.text = ""
+				if targets.size() > 0: # Ability Hit
+					attack_name.text = ability_name
+					# Use ability on target
+					Globals.print_with_timestamp(str("Hero ", hero.get_hero_name(), " using ability ", ability_name, " on: ", targets))
+					#ticker.text = str("Hero ", hero.get_hero_name(), " targets ", target.get_hero_name())
+					
+					
+					if (!GameManager.skip_animations):
+						await get_tree().create_timer((1.0/GameManager.time_modifier)).timeout
+						
+					var target_died = false
+					var dead_target_team
+					for target in targets:
+						if !target.alive:
+							target_died = true
+							dead_target_team = target.team
+					
+					if target_died:
+						var anyone_alive:bool = false
+						if dead_target_team == 1:
+							# anyone in team1 alive?
+							for hero_target in team1.heroes:
+								if hero_target.alive:
+									anyone_alive = true
+						if dead_target_team == 2:
+							# anyone in team2 alive?
+							for hero_target in team2.heroes:
+								if hero_target.alive:
+									anyone_alive = true
+						if !anyone_alive:
+							game_over = true
+							var winning_team:Team
+							var losing_team:Team
+							if (hero.team == 1):
+								winning_team = team1
+								losing_team = team2
+							else:
+								winning_team = team2
+								losing_team = team1
+							set_ticker_for_winner(winning_team)
+							winning_team.wins += 1
+							losing_team.knocked_out = true
+							for member in winning_team.heroes:
+								member.wins += 1
+							return [winning_team, losing_team]
+					
+					
+					if (!GameManager.skip_animations):
+						tween.kill()
+						tween = create_tween()
+						hero.play_animation_player("walk")
+						await tween.tween_property(hero, "position", hero.starting_position,(1.0/GameManager.time_modifier)).finished
+					attack_name.text = ""
+				else: # Ability Missed
+					attack_name.text = str(ability_name + " missed")
+					Globals.print_with_timestamp(str("Hero ", hero.get_hero_name(), " using ability ", ability_name, " missed!"))
+					if (!GameManager.skip_animations):
+						tween.kill()
+						tween = create_tween()
+						hero.play_animation_player("walk")
+						await tween.tween_property(hero, "position", hero.starting_position,(1.0/GameManager.time_modifier)).finished
+					attack_name.text = ""
+
+					
 			
 		# TODO re-evaluate the speed after every round and repeat
 		combatants.sort_custom(sort_heroes_by_speed)
@@ -238,6 +253,11 @@ func get_targets_friendly(caster:Hero, num_targets:int, self_valid:bool = false)
 		
 	var valid_target:bool = false
 	
+	if num_targets == -1:
+		# Target all enemies who are alive
+		for hero in caster_team.heroes:
+			if hero.alive:
+				return_heroes.push_back(hero)
 	for i in num_targets:
 		#TODO - Put checks to make sure this can't infinite loop
 		# Build list of valid targets first, then pick one
@@ -249,28 +269,35 @@ func get_targets_friendly(caster:Hero, num_targets:int, self_valid:bool = false)
 			elif (target!=caster and return_heroes.find(target) == -1 and target.alive):
 				valid_target = true
 				return_heroes.push_back(target)
+	update_ticker_message(caster,return_heroes)
 	
 	return return_heroes
 	
 func get_targets_enemy(caster:Hero, num_targets:int) -> Array[Hero]:
 	var return_heroes:Array[Hero] = []
-	var caster_team:Team
+	var target_team:Team
 	if caster.team == 1:
-		caster_team = team2
+		target_team = team2
 	else:
-		caster_team = team1
+		target_team = team1
 		
 	var valid_target:bool = false
 	
-	for i in num_targets:
-		#TODO - Put checks to make sure this can't infinite loop
-		# Build list of valid targets first, then pick one
-		while (!valid_target):
-			var target = caster_team.heroes.pick_random()
-			if ( return_heroes.find(target) == -1 and target.alive):
-				valid_target = true
-				return_heroes.push_back(target)
-	
+	if num_targets == -1:
+		# Target all enemies who are alive
+		for hero in target_team.heroes:
+			if hero.alive:
+				return_heroes.push_back(hero)
+	else:
+		for i in num_targets:
+			#TODO - Put checks to make sure this can't infinite loop
+			# Build list of valid targets first, then pick one
+			while (!valid_target):
+				var target = target_team.heroes.pick_random()
+				if ( return_heroes.find(target) == -1 and target.alive):
+					valid_target = true
+					return_heroes.push_back(target)
+	update_ticker_message(caster,return_heroes)
 	return return_heroes
 
 func display_match_label(team1_name:String, team1_color:Color, team2_name:String, team2_color:Color):
@@ -288,8 +315,10 @@ func display_match_label(team1_name:String, team1_color:Color, team2_name:String
 	#match_label.append_text("[/center]")
 
 func _on_change_bg_pressed():
+	print("Change BG pressed: ", current_background, "-", backgrounds.size())
 	current_background = (current_background + 1) % backgrounds.size()
 	background.texture = backgrounds[current_background]
+	print("Bg changed: ", background.texture)
 
 func _on_random_outfit_button_pressed():
 	for combatant in combatants:

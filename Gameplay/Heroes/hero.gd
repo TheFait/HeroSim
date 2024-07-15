@@ -5,21 +5,19 @@ var stat_block : HeroStatBlock
 var backstory: HeroBackstory
 var team:int
 var alive:bool = true
-var current_health:int
-var max_health:int
+var current_health:float
+var max_health:float
 var health_mult:int
 var wins:int = 0
 var skip_turn:bool = false
 var current_ability:Ability
 
 @onready var name_label = $NameLabel
-@onready var hero_icon = $HeroIcon
 @onready var sprites = $Sprites
 @onready var animation_player = $AnimationPlayer
-@onready var static_sprites = $StaticSprites
 @onready var health_bar := $HeroHealth
 @onready var abilities = $Abilities
-@onready var attack_effect = $StaticSprites/AttackEffect
+@onready var attack_effect = $Sprites/AttackEffect
 
 
 var starting_position:Vector2
@@ -35,7 +33,6 @@ func setup():
 
 func set_color(p_color:Color):
 	name_label.modulate = p_color
-	#health_bar.set_color(p_color)
 	team_color = p_color
 
 func setup_for_battle(p_color:Color, p_healthMult:int=1):
@@ -60,11 +57,9 @@ func set_team(p_team:int):
 
 func flip_sprite():
 	sprites.scale.x *= -1
-	static_sprites.scale.x *= -1
 
 func reset_sprite():
 	sprites.scale.x = abs(sprites.scale.x)
-	static_sprites.scale.x = abs(static_sprites.scale.x)
 
 func get_hero_name():
 	if backstory:
@@ -85,17 +80,17 @@ func get_display_hero_name() -> String:
 	#print(return_string)
 	return return_string
 
-func take_damage(damage:int):
-	current_health = maxi(0, current_health - damage)
+func take_damage(damage:float):
+	current_health = maxf(0, current_health - damage)
 	health_bar.health = current_health
 	if current_health == 0:
 		alive = false
 		animation_player.play("die")
 		
-func heal_damage(amount:int):
-	print(get_hero_name(), " healing for ", amount)
+func heal_damage(amount:float):
+	#print(get_hero_name(), " healing for ", amount)
 	if current_health > 0:
-		current_health = mini(max_health, current_health + amount)
+		current_health = minf(max_health, current_health + amount)
 		health_bar.health = current_health
 
 func use_ability() -> Ability:
@@ -105,7 +100,7 @@ func use_ability() -> Ability:
 	
 	# Get targeting type from ability
 	var target_comp = ability.find_child("TargetingComponent")
-	print(target_comp)
+	#print(target_comp)
 	
 	current_ability = stat_block.abilities.pick_random()
 	return current_ability
@@ -124,8 +119,8 @@ func play_animation_player(animation_name:String):
 	animation_player.play(animation_name)
 
 func update_sprites():
-	static_sprites.get_node("Outfit").texture = body_texture
-	static_sprites.get_node("Hair").texture = head_texture
+	sprites.get_node("Outfit").texture = body_texture
+	sprites.get_node("Hair").texture = head_texture
 
 func load_graphics(body:Texture2D, head:Texture2D):
 	body_texture = body
@@ -143,7 +138,7 @@ func take_turn(caller:Level) -> Array:
 		return []
 	
 	var ability:AbilityBase = choose_ability()
-	print("Using ", ability.get_ability_name())
+	#print("Using ", ability.get_ability_name())
 	# Get targeting type from ability
 	var target_comp:TargetingComponent = ability.find_child("TargetingComponent") as TargetingComponent
 	
@@ -151,17 +146,38 @@ func take_turn(caller:Level) -> Array:
 	
 	match target_comp.target_type:
 		TargetingComponent.TARGET_TYPE.FRIENDLY:
-			print("target friend")
+			#print("target friend")
 			targets = caller.get_targets_friendly(self, target_comp.target_number,true)
 		TargetingComponent.TARGET_TYPE.ENEMY:
-			print("target enemy")
+			#print("target enemy")
 			targets = caller.get_targets_enemy(self, target_comp.target_number)
 		TargetingComponent.TARGET_TYPE.SELF:
 			targets = [self]
-			print("target self")
+			#print("target self")
 		TargetingComponent.TARGET_TYPE.ALLIES:
-			print("targeting allies")
+			#print("targeting allies")
 			targets = caller.get_targets_friendly(self,target_comp.target_number)
+	
+	# Loop through effects to use on target
+	var self_effect_comp:CasterEffectComponent = ability.find_child("CasterEffectComponent") as CasterEffectComponent
+	if (self_effect_comp):
+		var self_effect:Sprite2D = load(self_effect_comp.effect_path).instantiate()
+		attack_effect.add_child(self_effect)
+	
+	animation_player.play("attack")
+	if (!GameManager.skip_animations):
+		await animation_player.animation_finished
+	
+	# test accuracy
+	var accuracy_comp:AccuracyComponent = ability.find_child("AccuracyComponent") as AccuracyComponent
+	if (accuracy_comp):
+		# Roll random number for ACC
+		var accuracy_test = randi_range(0,100)
+		# Compare to Acc value in ABL
+		Globals.print_with_timestamp(str("Accuracy check, result: ", accuracy_test, " vs ability accuracy: ", accuracy_comp.accuracy_value))
+		if (accuracy_test > accuracy_comp.accuracy_value): # Ability Missed
+			return [self,[],ability]
+		
 	
 	# Loop through effects to use on target
 	var damage_comp:DamageComponent = ability.find_child("DamageComponent") as DamageComponent
@@ -174,23 +190,13 @@ func take_turn(caller:Level) -> Array:
 	if (heal_comp):
 		for target in targets:
 			target.heal_damage(heal_comp.amount)
+			
+	# Loop through effects to use on target
+	var target_effect_comp:TargetEffectComponent = ability.find_child("TargetEffectComponent") as TargetEffectComponent
+	if (target_effect_comp):
+		for target in targets:
+			var self_effect:Sprite2D = load(target_effect_comp.effect_path).instantiate()
+			target.add_child(self_effect)
 	
 	return_array = [self, targets, ability]
 	return return_array
-
-# Attacks the target, returns the ability used
-func attack(target:Hero):
-	if(current_ability.self_effect_path != ""):
-		var self_effect:Sprite2D = load(current_ability.self_effect_path).instantiate()
-		attack_effect.add_child(self_effect)
-	
-	animation_player.play("attack")
-	await animation_player.animation_finished
-	
-	target.take_damage(current_ability.damage)
-	
-	if(current_ability.target_effect_path != ""):
-		var target_effect:Sprite2D = load(current_ability.target_effect_path).instantiate()
-		target.add_child(target_effect)
-		
-	

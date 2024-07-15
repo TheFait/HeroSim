@@ -1,40 +1,40 @@
 [gd_resource type="Theme" load_steps=10 format=3 uid="uid://br3hpq3vcr245"]
 
-[ext_resource type="Texture2D" uid="uid://c4f8m77uj6ppm" path="res://Assets/Images/UI/button_down.png" id="1_0s8wh"]
-[ext_resource type="Texture2D" uid="uid://4cd66qpenm0b" path="res://Assets/Images/UI/panel.png" id="1_50wxv"]
-[ext_resource type="Texture2D" uid="uid://brdd0ko7hce0y" path="res://Assets/Images/UI/button.png" id="1_mne32"]
-[ext_resource type="FontFile" uid="uid://df15nvscyjs8c" path="res://Assets/fonts/Silver.ttf" id="1_n4igo"]
+[ext_resource type="Texture2D" uid="uid://ckgsgc3urc4a5" path="res://Assets/Images/UI/button.png" id="1_l3nqa"]
+[ext_resource type="FontFile" uid="uid://b642a35tt76j5" path="res://Assets/fonts/Silver.ttf" id="1_n4igo"]
+[ext_resource type="Texture2D" uid="uid://dlqxjmly15xuj" path="res://Assets/Images/UI/button_down.png" id="2_8xyqu"]
+[ext_resource type="Texture2D" uid="uid://cjcl01cdpm7x7" path="res://Assets/Images/UI/panel.png" id="3_mlgu1"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s8d2o"]
-texture = ExtResource("1_0s8wh")
+texture = ExtResource("1_l3nqa")
 texture_margin_left = 4.0
 texture_margin_top = 4.0
 texture_margin_right = 4.0
 texture_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s0s7s"]
-texture = ExtResource("1_mne32")
+texture = ExtResource("1_l3nqa")
 texture_margin_left = 4.0
 texture_margin_top = 4.0
 texture_margin_right = 4.0
 texture_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rwdej"]
-texture = ExtResource("1_0s8wh")
+texture = ExtResource("2_8xyqu")
 texture_margin_left = 4.0
 texture_margin_top = 4.0
 texture_margin_right = 4.0
 texture_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jxbog"]
-texture = ExtResource("1_50wxv")
+texture = ExtResource("3_mlgu1")
 texture_margin_left = 12.0
 texture_margin_top = 12.0
 texture_margin_right = 12.0
 texture_margin_bottom = 12.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tlk24"]
-texture = ExtResource("1_50wxv")
+texture = ExtResource("3_mlgu1")
 texture_margin_left = 17.0
 texture_margin_top = 17.0
 texture_margin_right = 17.0

@@ -38,7 +38,7 @@ func _on_first_name_pressed():
 		print(data_set)
 		for first_name in data_set:
 			first_names.push_back(first_name)
-			print("Pushing firstname: ", first_name)	 
+			#print("Pushing firstname: ", first_name)	 
 	file.close()
 	print("File read in:")
 	print(first_names)
@@ -62,7 +62,7 @@ func _on_heroes_pressed():
 		var hero_name:String
 		while(true):
 			hero_name = str(first_names.pick_random(), " ", last_names.pick_random())
-			print("Tried to create: ", hero_name)
+			#print("Tried to create: ", hero_name)
 			if !players.has(hero_name):
 				print("Successfully added name: ", hero_name)
 				break

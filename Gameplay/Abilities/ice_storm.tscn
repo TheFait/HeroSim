@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3gd8l6qarb1r"]
+
+[ext_resource type="PackedScene" uid="uid://clr56wh8cq5jm" path="res://Gameplay/Abilities/ability_base.tscn" id="1_v7gqi"]
+[ext_resource type="PackedScene" uid="uid://cgqa4202mn7fd" path="res://Gameplay/Abilities/Components/damage_component.tscn" id="3_qgskb"]
+[ext_resource type="PackedScene" uid="uid://slccugjb2n7b" path="res://Gameplay/Abilities/Components/target_effect.tscn" id="4_fnwqn"]
+
+[node name="IceStorm" instance=ExtResource("1_v7gqi")]
+
+[node name="AbilityDisplay" parent="." index="0"]
+ability_name = "Ice Storm"
+ability_description = "Hits all enemies with ice"
+
+[node name="DamageComponent" parent="." index="1" instance=ExtResource("3_qgskb")]
+amount = 10.0
+element = 6
+
+[node name="TargetEffectComponent" parent="." index="2" instance=ExtResource("4_fnwqn")]
+effect_path = "res://Assets/ParticleEffects/blast.tscn"
+
+[node name="AccuracyComponent" parent="." index="3"]
+accuracy_value = 65.0
+
+[node name="TargetingComponent" parent="." index="4"]
+target_number = -1
+target_type = 1

@@ -13,6 +13,8 @@ func _ready():
 	$CanvasLayer/RandomOutfitButton.connect("pressed", _on_random_outfit_button_pressed)
 	$CanvasLayer/RandomBGButton.connect("pressed", _on_change_bg_pressed)
 	$CanvasLayer/SwapLevel.connect("pressed", _on_swap_level_pressed)
+	time_slider.value = GameManager.time_modifier
+	time_slider.value_changed.connect(_on_time_slider_value_changed)
 
 func init_scene():
 	get_tree().paused = false
@@ -127,7 +129,7 @@ func playMatch():
 				
 				# Use ability on target
 				print("Hero ", hero.get_hero_name(), " using ability ", ability_name, " on: ", target.get_hero_name())
-				update_ticker_message(hero,target)
+				update_ticker_message(hero,[target])
 				#ticker.text = str("Hero ", hero.get_hero_name(), " targets ", target.get_hero_name())
 				
 				target.take_damage(hero.stat_block.abilities[0].damage)

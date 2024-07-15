@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://Gameplay/Abilities/Components/target_effect.gd" id="1_rxbpw"]
 
-[node name="TargetEffect" type="Node"]
+[node name="TargetEffectComponent" type="Node"]
 script = ExtResource("1_rxbpw")
