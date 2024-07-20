@@ -11,6 +11,8 @@ var health_mult:int
 var wins:int = 0
 var skip_turn:bool = false
 var current_ability:Ability
+var forward:int = 1
+var moveAmount:int = 40
 
 @onready var name_label = $NameLabel
 @onready var sprites = $Sprites
@@ -18,6 +20,7 @@ var current_ability:Ability
 @onready var health_bar := $HeroHealth
 @onready var abilities = $Abilities
 @onready var attack_effect = $Sprites/AttackEffect
+@onready var damage_numbers = $DamageNumbers
 
 
 var starting_position:Vector2
@@ -26,6 +29,8 @@ var char_name:String
 var body_texture:Texture2D
 var head_texture:Texture2D
 
+# Reference to the position tween so we don't create it every time we get hit
+var pos_tween:Tween
 
 func setup():
 	if backstory:
@@ -57,6 +62,7 @@ func set_team(p_team:int):
 
 func flip_sprite():
 	sprites.scale.x *= -1
+	forward *= -1
 
 func reset_sprite():
 	sprites.scale.x = abs(sprites.scale.x)
@@ -83,9 +89,26 @@ func get_display_hero_name() -> String:
 func take_damage(damage:float):
 	current_health = maxf(0, current_health - damage)
 	health_bar.health = current_health
+	damage_numbers.display_number(damage,damage_numbers.position)
 	if current_health == 0:
 		alive = false
 		animation_player.play("die")
+	else:
+		#animation_player.play("RESET")
+		#animation_player.play("take_damage")
+		var mod_tween = get_tree().create_tween().set_loops(2)
+		mod_tween.tween_property(sprites, "modulate", Color(4,.25,.25),.2 ).from(Color.WHITE)
+		mod_tween.tween_property(sprites, "modulate", Color.WHITE,.2 )
+		
+		if(!pos_tween or !pos_tween.is_running()):
+			pos_tween = get_tree().create_tween()
+			pos_tween.tween_property(sprites, "position:x", (moveAmount * -forward),.2).as_relative()
+			pos_tween.tween_property(sprites, "position:x", (moveAmount * forward),.2).as_relative()
+			await pos_tween.finished
+			animation_player.play("walk")
+
+func reset_animation():
+	animation_player.player("walk")
 		
 func heal_damage(amount:float):
 	#print(get_hero_name(), " healing for ", amount)
@@ -112,10 +135,6 @@ func perform_ability(_target:Hero):
 	pass
 
 func play_animation(animation_name:String):
-	for animation:AnimatedSprite2D in sprites.get_children():
-		animation.play(animation_name)
-
-func play_animation_player(animation_name:String):
 	animation_player.play(animation_name)
 
 func update_sprites():
@@ -178,12 +197,17 @@ func take_turn(caller:Level) -> Array:
 		if (accuracy_test > accuracy_comp.accuracy_value): # Ability Missed
 			return [self,[],ability]
 		
+	# -------------------------------------------
+	# If we've made it here, we've hit the target
+	# -------------------------------------------
+	
 	
 	# Loop through effects to use on target
 	var damage_comp:DamageComponent = ability.find_child("DamageComponent") as DamageComponent
 	if (damage_comp):
 		for target in targets:
 			target.take_damage(damage_comp.amount)
+			target.play_animation("take_damage")
 	
 	# Loop through effects to use on target
 	var heal_comp:HealComponent = ability.find_child("HealComponent") as HealComponent

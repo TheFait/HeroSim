@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dy06fpapockt1"]
+[gd_scene load_steps=4 format=3 uid="uid://dy06fpapockt1"]
 
 [ext_resource type="Script" path="res://Menus/start_screen.gd" id="1_v6k1a"]
+[ext_resource type="Texture2D" uid="uid://drudpq1fiwlqp" path="res://splash.png" id="2_0byy5"]
 [ext_resource type="Theme" uid="uid://br3hpq3vcr245" path="res://Menus/Themes/base_theme.tres" id="2_bwo7q"]
 
 [node name="StartScreen" type="Control"]
@@ -11,6 +12,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_v6k1a")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_0byy5")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -26,22 +36,25 @@ alignment = 1
 layout_mode = 2
 alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/HBoxContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/v_separation = 9
 
-[node name="Start" type="Button" parent="VBoxContainer/HBoxContainer/GridContainer"]
+[node name="Start" type="Button" parent="VBoxContainer/HBoxContainer/PanelContainer/GridContainer"]
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 theme = ExtResource("2_bwo7q")
 text = "Start"
 
-[node name="Settings" type="Button" parent="VBoxContainer/HBoxContainer/GridContainer"]
+[node name="Settings" type="Button" parent="VBoxContainer/HBoxContainer/PanelContainer/GridContainer"]
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 text = "Settings"
 
-[node name="Quit" type="Button" parent="VBoxContainer/HBoxContainer/GridContainer"]
+[node name="Quit" type="Button" parent="VBoxContainer/HBoxContainer/PanelContainer/GridContainer"]
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 text = "Quit"
@@ -63,6 +76,6 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 10
 text = "version"
 
-[connection signal="button_up" from="VBoxContainer/HBoxContainer/GridContainer/Start" to="." method="_on_start_button_up"]
-[connection signal="button_up" from="VBoxContainer/HBoxContainer/GridContainer/Settings" to="." method="_on_settings_button_up"]
-[connection signal="button_up" from="VBoxContainer/HBoxContainer/GridContainer/Quit" to="." method="_on_quit_button_up"]
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/PanelContainer/GridContainer/Start" to="." method="_on_start_button_up"]
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/PanelContainer/GridContainer/Settings" to="." method="_on_settings_button_up"]
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/PanelContainer/GridContainer/Quit" to="." method="_on_quit_button_up"]

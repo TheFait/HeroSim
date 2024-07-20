@@ -11,7 +11,7 @@ ability_name = "Punch"
 ability_description = "A physical punchie"
 
 [node name="DamageComponent" parent="." index="1" instance=ExtResource("2_qt8ov")]
-amount = 15.0
+amount = 65.0
 
 [node name="TargetEffectComponent" parent="." index="2" instance=ExtResource("3_ahrim")]
 effect_path = "res://Assets/ParticleEffects/stars_impact.tscn"

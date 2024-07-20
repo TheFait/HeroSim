@@ -12,7 +12,7 @@ ability_name = "Fireball"
 ability_description = "Blast Em"
 
 [node name="DamageComponent" parent="." index="1" instance=ExtResource("2_5k8nc")]
-amount = 20.0
+amount = 50.0
 
 [node name="TargetEffectComponent" type="Node" parent="." index="2"]
 script = ExtResource("4_rm3o8")

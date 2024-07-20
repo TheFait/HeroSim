@@ -23,6 +23,7 @@ func _ready():
 	$CanvasLayer/RandomOutfitButton.pressed.connect(_on_random_outfit_button_pressed)
 	$CanvasLayer/RandomBGButton.pressed.connect(_on_change_bg_pressed)
 	$CanvasLayer/SwapLevel.pressed.connect(_on_swap_level_pressed)
+	$CanvasLayer/TakeDamage.pressed.connect(_on_take_damage_pressed)
 	time_slider.value = GameManager.time_modifier
 	time_slider.value_changed.connect(_on_time_slider_value_changed)
 
@@ -165,7 +166,7 @@ func playMatch(p_team1:Team, p_team2:Team):
 							tween.tween_property(hero, "position", team_1_attacker.position,(.5/GameManager.time_modifier))
 					else:
 						tween.tween_property(hero, "position", team_2_attacker.position,(.5/GameManager.time_modifier))
-					hero.play_animation_player("run")
+					hero.play_animation("run")
 					await tween.finished
 				
 				# Choose a random ability
@@ -225,7 +226,7 @@ func playMatch(p_team1:Team, p_team2:Team):
 					if (!GameManager.skip_animations):
 						tween.kill()
 						tween = create_tween()
-						hero.play_animation_player("walk")
+						hero.play_animation("walk")
 						await tween.tween_property(hero, "position", hero.starting_position,(1.0/GameManager.time_modifier)).finished
 					attack_name.text = ""
 				else: # Ability Missed
@@ -234,7 +235,7 @@ func playMatch(p_team1:Team, p_team2:Team):
 					if (!GameManager.skip_animations):
 						tween.kill()
 						tween = create_tween()
-						hero.play_animation_player("walk")
+						hero.play_animation("walk")
 						await tween.tween_property(hero, "position", hero.starting_position,(1.0/GameManager.time_modifier)).finished
 					attack_name.text = ""
 
@@ -364,3 +365,6 @@ func print_matches_results(results:Array):
 func reset_tournament():
 	for team in league:
 		team.knocked_out = false
+
+func _on_take_damage_pressed():
+	team1.heroes[0].take_damage(20)

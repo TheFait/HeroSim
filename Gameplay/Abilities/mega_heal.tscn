@@ -11,7 +11,7 @@ ability_name = "Mega Heal"
 ability_description = "Add health to all allies"
 
 [node name="HealComponent" parent="." index="1" instance=ExtResource("3_gt1ne")]
-amount = 5.0
+amount = 15.0
 
 [node name="TargetEffectComponent" parent="." index="2" instance=ExtResource("4_5aq7y")]
 effect_path = "res://Assets/ParticleEffects/sparkle.tscn"

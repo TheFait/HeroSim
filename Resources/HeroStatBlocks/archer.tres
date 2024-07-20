@@ -8,6 +8,6 @@
 [resource]
 script = ExtResource("1_cire0")
 class_title = "Archer"
-health = 95
+health = 950
 speed = 5
 abilities = Array[Resource("res://Resources/ability.gd")]([ExtResource("1_gvkdy"), ExtResource("2_28l4v"), ExtResource("3_5ckj8")])

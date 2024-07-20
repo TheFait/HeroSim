@@ -139,6 +139,14 @@ theme = ExtResource("1_y4ka0")
 theme_override_font_sizes/font_size = 25
 text = "Swap Level"
 
+[node name="TakeDamage" type="Button" parent="."]
+offset_left = 1015.0
+offset_right = 1167.0
+offset_bottom = 42.0
+theme = ExtResource("1_y4ka0")
+theme_override_font_sizes/font_size = 25
+text = "Take Damage"
+
 [node name="TimeSlider" type="VSlider" parent="."]
 offset_left = 316.0
 offset_top = 29.0

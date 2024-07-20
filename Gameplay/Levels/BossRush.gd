@@ -107,7 +107,7 @@ func playMatch():
 						tween.tween_property(hero, "position", team_1_attacker.position,(.5/GameManager.time_modifier))
 					else:
 						tween.tween_property(hero, "position", team_2_attacker.position,(.5/GameManager.time_modifier))
-					hero.play_animation_player("run")
+					hero.play_animation("run")
 					await tween.finished
 				
 				# choose random target			
@@ -160,7 +160,7 @@ func playMatch():
 				if (!GameManager.skip_animations):
 					tween.kill()
 					tween = create_tween()
-					hero.play_animation_player("walk")
+					hero.play_animation("walk")
 					await tween.tween_property(hero, "position", hero.starting_position,(1.0/GameManager.time_modifier)).finished
 				attack_name.text = ""
 			

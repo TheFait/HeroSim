@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dqhgchu2lwf7k"]
 
-[ext_resource type="Texture2D" uid="uid://c2lr5flqxidtf" path="res://Assets/Images/Particles/get_hit.png" id="1_t4g1l"]
+[ext_resource type="Texture2D" uid="uid://ddriuctj6b2cb" path="res://Assets/Images/Particles/get_hit.png" id="1_t4g1l"]
 
 [sub_resource type="Animation" id="Animation_sykqr"]
 length = 0.001

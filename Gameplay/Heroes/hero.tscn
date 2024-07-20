@@ -1,13 +1,14 @@
-[gd_scene load_steps=18 format=3 uid="uid://ddmrwwtg3w072"]
+[gd_scene load_steps=20 format=3 uid="uid://ddmrwwtg3w072"]
 
 [ext_resource type="Script" path="res://Gameplay/Heroes/hero.gd" id="1_rdjod"]
 [ext_resource type="Theme" uid="uid://br3hpq3vcr245" path="res://Menus/Themes/base_theme.tres" id="3_2hg2u"]
 [ext_resource type="PackedScene" uid="uid://bljetr4b3dd31" path="res://Menus/health_bar.tscn" id="4_65rll"]
-[ext_resource type="Texture2D" uid="uid://br53tydxfm3ud" path="res://Assets/Images/Hero/sheets/base.png" id="6_26dud"]
-[ext_resource type="Texture2D" uid="uid://dnfpv3wnbemqr" path="res://Assets/Images/Hero/sheets/body/outfit1.png" id="9_npyp5"]
+[ext_resource type="Texture2D" uid="uid://dkhi4fvnpl624" path="res://Assets/Images/Hero/sheets/base.png" id="6_26dud"]
+[ext_resource type="Texture2D" uid="uid://bvexkfpxu7xdn" path="res://Assets/Images/Hero/sheets/body/outfit1.png" id="9_npyp5"]
 [ext_resource type="PackedScene" uid="uid://b3gd8l6qarb1r" path="res://Gameplay/Abilities/ice_storm.tscn" id="10_6clrc"]
-[ext_resource type="Texture2D" uid="uid://c1uxln68jn6hj" path="res://Assets/Images/Hero/sheets/head/hair.png" id="10_nqeqt"]
+[ext_resource type="Texture2D" uid="uid://oxrc4te02h3j" path="res://Assets/Images/Hero/sheets/head/hair.png" id="10_nqeqt"]
 [ext_resource type="PackedScene" uid="uid://re58feix351s" path="res://Gameplay/Abilities/fireball.tscn" id="11_i4wiq"]
+[ext_resource type="PackedScene" uid="uid://d1mljf12ci6j3" path="res://Gameplay/damage_numbers.tscn" id="12_1m4q6"]
 [ext_resource type="PackedScene" uid="uid://dw4l0xnpwmoxq" path="res://Gameplay/Abilities/heal.tscn" id="12_yv0s7"]
 [ext_resource type="PackedScene" uid="uid://i6rjadekvp1h" path="res://Gameplay/Abilities/punch.tscn" id="13_sxf2g"]
 [ext_resource type="PackedScene" uid="uid://be0t8xsu2rvah" path="res://Gameplay/Abilities/mega_heal.tscn" id="14_do6rj"]
@@ -61,6 +62,30 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprites:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprites:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_v2ww7"]
@@ -236,17 +261,34 @@ tracks/3/keys = {
 "values": [0.0]
 }
 
+[sub_resource type="Animation" id="Animation_2x65m"]
+resource_name = "take_damage"
+length = 0.8
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(53.9843, 45.6196, 51.702, 1), Color(1, 1, 1, 1), Color(1, 0.360784, 0.372549, 1), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_64fok"]
 _data = {
 "RESET": SubResource("Animation_4gt0c"),
 "attack": SubResource("Animation_v2ww7"),
 "die": SubResource("Animation_d5sdp"),
 "run": SubResource("Animation_upprb"),
+"take_damage": SubResource("Animation_2x65m"),
 "walk": SubResource("Animation_y731q")
 }
 
 [node name="Hero" type="Node2D"]
-position = Vector2(0, -1)
 script = ExtResource("1_rdjod")
 
 [node name="NameLabel" type="Label" parent="."]
@@ -310,3 +352,6 @@ scale = Vector2(0.333333, 0.333333)
 [node name="Heal" parent="Abilities" instance=ExtResource("12_yv0s7")]
 
 [node name="Punch" parent="Abilities" instance=ExtResource("13_sxf2g")]
+
+[node name="DamageNumbers" parent="." instance=ExtResource("12_1m4q6")]
+position = Vector2(0, -24)
