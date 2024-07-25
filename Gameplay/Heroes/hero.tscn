@@ -1,15 +1,17 @@
-[gd_scene load_steps=20 format=3 uid="uid://ddmrwwtg3w072"]
+[gd_scene load_steps=22 format=3 uid="uid://ddmrwwtg3w072"]
 
 [ext_resource type="Script" path="res://Gameplay/Heroes/hero.gd" id="1_rdjod"]
 [ext_resource type="Theme" uid="uid://br3hpq3vcr245" path="res://Menus/Themes/base_theme.tres" id="3_2hg2u"]
 [ext_resource type="PackedScene" uid="uid://bljetr4b3dd31" path="res://Menus/health_bar.tscn" id="4_65rll"]
 [ext_resource type="Texture2D" uid="uid://dkhi4fvnpl624" path="res://Assets/Images/Hero/sheets/base.png" id="6_26dud"]
+[ext_resource type="PackedScene" uid="uid://byp1iw2hity23" path="res://Gameplay/Abilities/defend.tscn" id="8_7501t"]
 [ext_resource type="Texture2D" uid="uid://bvexkfpxu7xdn" path="res://Assets/Images/Hero/sheets/body/outfit1.png" id="9_npyp5"]
 [ext_resource type="PackedScene" uid="uid://b3gd8l6qarb1r" path="res://Gameplay/Abilities/ice_storm.tscn" id="10_6clrc"]
 [ext_resource type="Texture2D" uid="uid://oxrc4te02h3j" path="res://Assets/Images/Hero/sheets/head/hair.png" id="10_nqeqt"]
 [ext_resource type="PackedScene" uid="uid://re58feix351s" path="res://Gameplay/Abilities/fireball.tscn" id="11_i4wiq"]
 [ext_resource type="PackedScene" uid="uid://d1mljf12ci6j3" path="res://Gameplay/damage_numbers.tscn" id="12_1m4q6"]
 [ext_resource type="PackedScene" uid="uid://dw4l0xnpwmoxq" path="res://Gameplay/Abilities/heal.tscn" id="12_yv0s7"]
+[ext_resource type="Texture2D" uid="uid://delfks8ixs4by" path="res://Assets/Images/Icons/sword_01c.png" id="13_bxvhu"]
 [ext_resource type="PackedScene" uid="uid://i6rjadekvp1h" path="res://Gameplay/Abilities/punch.tscn" id="13_sxf2g"]
 [ext_resource type="PackedScene" uid="uid://be0t8xsu2rvah" path="res://Gameplay/Abilities/mega_heal.tscn" id="14_do6rj"]
 
@@ -208,6 +210,23 @@ tracks/2/keys = {
 "values": [48, 48, 49, 54, 54, 54, 51, 51, 52, 55, 55, 55]
 }
 
+[sub_resource type="Animation" id="Animation_2x65m"]
+resource_name = "take_damage"
+length = 0.8
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(53.9843, 45.6196, 51.702, 1), Color(1, 1, 1, 1), Color(1, 0.360784, 0.372549, 1), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_y731q"]
 resource_name = "run"
 length = 0.55
@@ -259,23 +278,6 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
-}
-
-[sub_resource type="Animation" id="Animation_2x65m"]
-resource_name = "take_damage"
-length = 0.8
-step = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprites:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(53.9843, 45.6196, 51.702, 1), Color(1, 1, 1, 1), Color(1, 0.360784, 0.372549, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_64fok"]
@@ -343,15 +345,24 @@ scale = Vector2(0.333333, 0.333333)
 
 [node name="Abilities" type="Node" parent="."]
 
+[node name="Punch" parent="Abilities" instance=ExtResource("13_sxf2g")]
+
+[node name="Defend" parent="Abilities" instance=ExtResource("8_7501t")]
+
+[node name="Heal" parent="Abilities" instance=ExtResource("12_yv0s7")]
+
+[node name="Fireball" parent="Abilities" instance=ExtResource("11_i4wiq")]
+
 [node name="IceStorm" parent="Abilities" instance=ExtResource("10_6clrc")]
 
 [node name="MegaHeal" parent="Abilities" instance=ExtResource("14_do6rj")]
 
-[node name="Fireball" parent="Abilities" instance=ExtResource("11_i4wiq")]
-
-[node name="Heal" parent="Abilities" instance=ExtResource("12_yv0s7")]
-
-[node name="Punch" parent="Abilities" instance=ExtResource("13_sxf2g")]
-
 [node name="DamageNumbers" parent="." instance=ExtResource("12_1m4q6")]
 position = Vector2(0, -24)
+
+[node name="IconMarker" type="Marker2D" parent="."]
+position = Vector2(0, -166)
+
+[node name="Icon" type="Sprite2D" parent="IconMarker"]
+visible = false
+texture = ExtResource("13_bxvhu")

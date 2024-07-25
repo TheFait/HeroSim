@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://re58feix351s"]
+[gd_scene load_steps=6 format=3 uid="uid://re58feix351s"]
 
 [ext_resource type="PackedScene" uid="uid://clr56wh8cq5jm" path="res://Gameplay/Abilities/ability_base.tscn" id="1_g4qiy"]
 [ext_resource type="PackedScene" uid="uid://cgqa4202mn7fd" path="res://Gameplay/Abilities/Components/damage_component.tscn" id="2_5k8nc"]
+[ext_resource type="Texture2D" uid="uid://kmuxhhmumdcw" path="res://Assets/Images/Icons/book_03f.png" id="2_jkj6p"]
 [ext_resource type="Script" path="res://Gameplay/Abilities/Components/target_effect.gd" id="4_rm3o8"]
 [ext_resource type="Script" path="res://Gameplay/Abilities/Components/caster_effect.gd" id="5_x0cit"]
 
@@ -10,6 +11,7 @@
 [node name="AbilityDisplay" parent="." index="0"]
 ability_name = "Fireball"
 ability_description = "Blast Em"
+ability_icon = ExtResource("2_jkj6p")
 
 [node name="DamageComponent" parent="." index="1" instance=ExtResource("2_5k8nc")]
 amount = 50.0

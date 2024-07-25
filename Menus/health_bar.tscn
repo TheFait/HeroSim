@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bljetr4b3dd31"]
+[gd_scene load_steps=13 format=3 uid="uid://bljetr4b3dd31"]
 
 [ext_resource type="Texture2D" uid="uid://cj4phndsshko7" path="res://Assets/progress_bar/progress_new.png" id="1_e2mcq"]
 [ext_resource type="Script" path="res://Menus/health_bar.gd" id="1_onesh"]
 [ext_resource type="Theme" uid="uid://br3hpq3vcr245" path="res://Menus/Themes/base_theme.tres" id="1_ybbh5"]
 [ext_resource type="Texture2D" uid="uid://py385m422aub" path="res://Assets/progress_bar/bg.png" id="3_ktuhy"]
 [ext_resource type="Texture2D" uid="uid://dm7blivmmg5i1" path="res://Assets/progress_bar/progress_new_damage.png" id="4_oydc7"]
+[ext_resource type="Texture2D" uid="uid://bv1ljgei3i2jp" path="res://Assets/progress_bar/shield.png" id="5_vfnjk"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_udcrq"]
 
@@ -20,6 +21,13 @@ texture_margin_right = 10.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x1wiv"]
 texture = ExtResource("4_oydc7")
+texture_margin_left = 6.0
+texture_margin_right = 10.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_immmq"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3cy4t"]
+texture = ExtResource("5_vfnjk")
 texture_margin_left = 6.0
 texture_margin_right = 10.0
 
@@ -44,6 +52,21 @@ grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxTexture_7jris")
 theme_override_styles/fill = SubResource("StyleBoxTexture_x1wiv")
 value = 90.0
+show_percentage = false
+
+[node name="ShieldBar" type="ProgressBar" parent="."]
+z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_immmq")
+theme_override_styles/fill = SubResource("StyleBoxTexture_3cy4t")
+max_value = 1000.0
+value = 30.0
+fill_mode = 1
 show_percentage = false
 
 [node name="ValueDisplay" type="Label" parent="."]

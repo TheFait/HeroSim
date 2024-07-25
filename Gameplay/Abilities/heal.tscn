@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dw4l0xnpwmoxq"]
+[gd_scene load_steps=5 format=3 uid="uid://dw4l0xnpwmoxq"]
 
 [ext_resource type="PackedScene" uid="uid://clr56wh8cq5jm" path="res://Gameplay/Abilities/ability_base.tscn" id="1_hvwdm"]
+[ext_resource type="Texture2D" uid="uid://cncsybk0dpcta" path="res://Assets/Images/Icons/book_02a.png" id="2_pvk3h"]
 [ext_resource type="PackedScene" uid="uid://vpjkp27sysjb" path="res://Gameplay/Abilities/Components/heal_component.tscn" id="3_a0wlt"]
 [ext_resource type="PackedScene" uid="uid://slccugjb2n7b" path="res://Gameplay/Abilities/Components/target_effect.tscn" id="4_wodpu"]
 
@@ -9,6 +10,7 @@
 [node name="AbilityDisplay" parent="." index="0"]
 ability_name = "Heal"
 ability_description = "Add health to Allys"
+ability_icon = ExtResource("2_pvk3h")
 
 [node name="HealComponent" parent="." index="1" instance=ExtResource("3_a0wlt")]
 amount = 35.0

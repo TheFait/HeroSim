@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://byp1iw2hity23"]
+
+[ext_resource type="PackedScene" uid="uid://clr56wh8cq5jm" path="res://Gameplay/Abilities/ability_base.tscn" id="1_fsfgi"]
+[ext_resource type="Texture2D" uid="uid://evajvlaccvo3" path="res://Assets/Images/Icons/shield_02d.png" id="2_qy7mk"]
+[ext_resource type="PackedScene" uid="uid://slccugjb2n7b" path="res://Gameplay/Abilities/Components/target_effect.tscn" id="3_4eflf"]
+[ext_resource type="PackedScene" uid="uid://ble7vkiilq3k0" path="res://Gameplay/Abilities/Components/defense_component.tscn" id="4_8h20b"]
+
+[node name="Defend" instance=ExtResource("1_fsfgi")]
+
+[node name="AbilityDisplay" parent="." index="0"]
+ability_name = "Defend"
+ability_description = "Add defense to allies"
+ability_icon = ExtResource("2_qy7mk")
+
+[node name="TargetEffectComponent" parent="." index="1" instance=ExtResource("3_4eflf")]
+effect_path = "res://Assets/ParticleEffects/sparkle.tscn"
+
+[node name="TargetingComponent" parent="." index="3"]
+target_number = 1
+target_type = 3
+
+[node name="DefenseComponent" parent="." index="4" instance=ExtResource("4_8h20b")]
+amount = 30.0
+element = 2

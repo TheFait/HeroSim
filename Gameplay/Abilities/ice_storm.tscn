@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3gd8l6qarb1r"]
+[gd_scene load_steps=5 format=3 uid="uid://b3gd8l6qarb1r"]
 
 [ext_resource type="PackedScene" uid="uid://clr56wh8cq5jm" path="res://Gameplay/Abilities/ability_base.tscn" id="1_v7gqi"]
+[ext_resource type="Texture2D" uid="uid://c41su83ftccpy" path="res://Assets/Images/Icons/book_04c.png" id="2_igcnr"]
 [ext_resource type="PackedScene" uid="uid://cgqa4202mn7fd" path="res://Gameplay/Abilities/Components/damage_component.tscn" id="3_qgskb"]
 [ext_resource type="PackedScene" uid="uid://slccugjb2n7b" path="res://Gameplay/Abilities/Components/target_effect.tscn" id="4_fnwqn"]
 
@@ -9,6 +10,7 @@
 [node name="AbilityDisplay" parent="." index="0"]
 ability_name = "Ice Storm"
 ability_description = "Hits all enemies with ice"
+ability_icon = ExtResource("2_igcnr")
 
 [node name="DamageComponent" parent="." index="1" instance=ExtResource("3_qgskb")]
 amount = 25.0

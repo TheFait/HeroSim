@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://be0t8xsu2rvah"]
+[gd_scene load_steps=5 format=3 uid="uid://be0t8xsu2rvah"]
 
 [ext_resource type="PackedScene" uid="uid://clr56wh8cq5jm" path="res://Gameplay/Abilities/ability_base.tscn" id="1_d8olb"]
+[ext_resource type="Texture2D" uid="uid://cncsybk0dpcta" path="res://Assets/Images/Icons/book_02a.png" id="2_i361x"]
 [ext_resource type="PackedScene" uid="uid://vpjkp27sysjb" path="res://Gameplay/Abilities/Components/heal_component.tscn" id="3_gt1ne"]
 [ext_resource type="PackedScene" uid="uid://slccugjb2n7b" path="res://Gameplay/Abilities/Components/target_effect.tscn" id="4_5aq7y"]
 
@@ -9,6 +10,7 @@
 [node name="AbilityDisplay" parent="." index="0"]
 ability_name = "Mega Heal"
 ability_description = "Add health to all allies"
+ability_icon = ExtResource("2_i361x")
 
 [node name="HealComponent" parent="." index="1" instance=ExtResource("3_gt1ne")]
 amount = 15.0

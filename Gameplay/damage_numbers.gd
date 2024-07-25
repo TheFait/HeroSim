@@ -5,13 +5,13 @@ const BOUNCE_HEIGHT:int = 150
 const BOUNCE_EXPLOSION_HEIGHT:int = 50
 const BOUNCE_VARIANCE:int = 10
 
-func display_number(value: int, position:Vector2, is_critical:bool=false):
+func display_number(value: int, is_critical:bool=false, p_position:Vector2=Vector2.ZERO):
 	var number = Label.new()
 	
 	if(display_position):
 		number.global_position = display_position.global_position
 	else:
-		number.global_position = position
+		number.global_position = p_position
 	
 	number.text = str(value)
 	number.z_index = 10

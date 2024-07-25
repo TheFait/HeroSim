@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://i6rjadekvp1h"]
+[gd_scene load_steps=5 format=3 uid="uid://i6rjadekvp1h"]
 
 [ext_resource type="PackedScene" uid="uid://clr56wh8cq5jm" path="res://Gameplay/Abilities/ability_base.tscn" id="1_dq4ch"]
+[ext_resource type="Texture2D" uid="uid://ci4xjmho5vmvj" path="res://Assets/Images/Icons/gloves_01d.png" id="2_lbtaf"]
 [ext_resource type="PackedScene" uid="uid://cgqa4202mn7fd" path="res://Gameplay/Abilities/Components/damage_component.tscn" id="2_qt8ov"]
 [ext_resource type="PackedScene" uid="uid://slccugjb2n7b" path="res://Gameplay/Abilities/Components/target_effect.tscn" id="3_ahrim"]
 
@@ -9,6 +10,7 @@
 [node name="AbilityDisplay" parent="." index="0"]
 ability_name = "Punch"
 ability_description = "A physical punchie"
+ability_icon = ExtResource("2_lbtaf")
 
 [node name="DamageComponent" parent="." index="1" instance=ExtResource("2_qt8ov")]
 amount = 65.0

@@ -6,6 +6,10 @@ var backstory: HeroBackstory
 var team:int
 var alive:bool = true
 var current_health:float
+var current_shield:float:
+	set(value):
+		current_shield = max(0, value)
+		health_bar.shield = current_shield
 var max_health:float
 var health_mult:int
 var wins:int = 0
@@ -21,6 +25,7 @@ var moveAmount:int = 40
 @onready var abilities = $Abilities
 @onready var attack_effect = $Sprites/AttackEffect
 @onready var damage_numbers = $DamageNumbers
+@onready var icon = $IconMarker/Icon
 
 
 var starting_position:Vector2
@@ -47,9 +52,11 @@ func setup_for_battle(p_color:Color, p_healthMult:int=1):
 	health_bar.init_health(max_health)
 	set_color(p_color)
 	name_label.text = char_name
+	name = char_name
 	update_sprites()
 	alive = true
-	animation_player.play("walk")
+	play_animation("walk")
+	clear_icon()
 	
 	# reset sprite scale
 	reset_sprite()
@@ -87,28 +94,41 @@ func get_display_hero_name() -> String:
 	return return_string
 
 func take_damage(damage:float):
-	current_health = maxf(0, current_health - damage)
-	health_bar.health = current_health
-	damage_numbers.display_number(damage,damage_numbers.position)
-	if current_health == 0:
-		alive = false
-		animation_player.play("die")
-	else:
-		#animation_player.play("RESET")
-		#animation_player.play("take_damage")
-		var mod_tween = get_tree().create_tween().set_loops(2)
-		mod_tween.tween_property(sprites, "modulate", Color(4,.25,.25),.2 ).from(Color.WHITE)
-		mod_tween.tween_property(sprites, "modulate", Color.WHITE,.2 )
+	# Subtract damage from defense
+	var new_defense = max(0, current_shield - damage)
+	if (new_defense > 0):
+		# all damage was shielded
+		current_shield = new_defense
+		print("All damage was shielded")
+		pass
+	else: # We're taking damage
+		if current_shield > 0:
+			current_shield = 0
+			# Shield was broken
+			print("Shield was broken")
 		
-		if(!pos_tween or !pos_tween.is_running()):
-			pos_tween = get_tree().create_tween()
-			pos_tween.tween_property(sprites, "position:x", (moveAmount * -forward),.2).as_relative()
-			pos_tween.tween_property(sprites, "position:x", (moveAmount * forward),.2).as_relative()
-			await pos_tween.finished
-			animation_player.play("walk")
+		current_health = maxf(0, current_health - damage)
+		health_bar.health = current_health
+		damage_numbers.display_number(damage)
+		if current_health == 0:
+			alive = false
+			play_animation("die")
+		else:
+			#animation_player.play("RESET")
+			#animation_player.play("take_damage")
+			var mod_tween = get_tree().create_tween().set_loops(2)
+			mod_tween.tween_property(sprites, "modulate", Color(4,.25,.25),.2 ).from(Color.WHITE)
+			mod_tween.tween_property(sprites, "modulate", Color.WHITE,.2 )
+			
+			if(!pos_tween or !pos_tween.is_running()):
+				pos_tween = get_tree().create_tween()
+				pos_tween.tween_property(sprites, "position:x", (moveAmount * -forward),.2).as_relative()
+				pos_tween.tween_property(sprites, "position:x", (moveAmount * forward),.2).as_relative()
+				await pos_tween.finished
+				play_animation("walk")
 
 func reset_animation():
-	animation_player.player("walk")
+	play_animation("walk")
 		
 func heal_damage(amount:float):
 	#print(get_hero_name(), " healing for ", amount)
@@ -116,15 +136,11 @@ func heal_damage(amount:float):
 		current_health = minf(max_health, current_health + amount)
 		health_bar.health = current_health
 
+func apply_defense(amount:float):
+	print("Applying defense to ", get_hero_name(), ": ", amount)
+	current_shield = current_shield + amount
+
 func use_ability() -> Ability:
-	
-	# Grab first child ability -- hard coded
-	var ability = abilities.get_children().pick_random()
-	
-	# Get targeting type from ability
-	var target_comp = ability.find_child("TargetingComponent")
-	#print(target_comp)
-	
 	current_ability = stat_block.abilities.pick_random()
 	return current_ability
 
@@ -149,7 +165,7 @@ func heal_to_full():
 	current_health = max_health
 	alive = true
 	health_bar.init_health(max_health)
-	animation_player.play("walk")
+	play_animation("walk")
 
 func take_turn(caller:Level) -> Array:
 	var return_array = []
@@ -157,6 +173,7 @@ func take_turn(caller:Level) -> Array:
 		return []
 	
 	var ability:AbilityBase = choose_ability()
+	set_icon(ability.get_icon())
 	#print("Using ", ability.get_ability_name())
 	# Get targeting type from ability
 	var target_comp:TargetingComponent = ability.find_child("TargetingComponent") as TargetingComponent
@@ -183,7 +200,7 @@ func take_turn(caller:Level) -> Array:
 		var self_effect:Sprite2D = load(self_effect_comp.effect_path).instantiate()
 		attack_effect.add_child(self_effect)
 	
-	animation_player.play("attack")
+	play_animation("attack")
 	if (!GameManager.skip_animations):
 		await animation_player.animation_finished
 	
@@ -195,32 +212,52 @@ func take_turn(caller:Level) -> Array:
 		# Compare to Acc value in ABL
 		Globals.print_with_timestamp(str("Accuracy check, result: ", accuracy_test, " vs ability accuracy: ", accuracy_comp.accuracy_value))
 		if (accuracy_test > accuracy_comp.accuracy_value): # Ability Missed
+			finish_turn()
 			return [self,[],ability]
 		
 	# -------------------------------------------
 	# If we've made it here, we've hit the target
-	# -------------------------------------------
-	
+	# -------------------------------------------	
 	
 	# Loop through effects to use on target
-	var damage_comp:DamageComponent = ability.find_child("DamageComponent") as DamageComponent
+	var damage_comp:DamageComponent = ability.get_node_or_null("DamageComponent") as DamageComponent
 	if (damage_comp):
 		for target in targets:
 			target.take_damage(damage_comp.amount)
 			target.play_animation("take_damage")
 	
 	# Loop through effects to use on target
-	var heal_comp:HealComponent = ability.find_child("HealComponent") as HealComponent
+	var heal_comp:HealComponent = ability.get_node_or_null("HealComponent") as HealComponent
 	if (heal_comp):
 		for target in targets:
 			target.heal_damage(heal_comp.amount)
 			
+	
 	# Loop through effects to use on target
-	var target_effect_comp:TargetEffectComponent = ability.find_child("TargetEffectComponent") as TargetEffectComponent
+	var defense_comp:DefenseComponent = ability.get_node_or_null("DefenseComponent") as DefenseComponent
+	if (defense_comp):
+		for target in targets:
+			target.apply_defense(defense_comp.amount)
+			
+	# Loop through effects to use on target
+	var target_effect_comp:TargetEffectComponent = ability.get_node_or_null("TargetEffectComponent") as TargetEffectComponent
 	if (target_effect_comp):
 		for target in targets:
 			var self_effect:Sprite2D = load(target_effect_comp.effect_path).instantiate()
 			target.add_child(self_effect)
 	
+	finish_turn()
 	return_array = [self, targets, ability]
 	return return_array
+
+func finish_turn():
+	clear_icon()
+
+
+func set_icon(texture:Texture2D):
+	icon.show()
+	icon.texture = texture
+
+func clear_icon():
+	icon.hide()
+	icon.texture = null

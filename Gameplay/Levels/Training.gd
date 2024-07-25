@@ -114,8 +114,8 @@ func game_timeout():
 		await get_tree().create_timer(1).timeout
 
 func prepare_match(p_team1:Team, p_team2:Team):
-	var team1_players = p_team1.heroes
-	var team2_players = p_team2.heroes
+	var team1_players:Array[Hero] = p_team1.heroes
+	var team2_players:Array[Hero] = p_team2.heroes
 	empty_heroes()
 	
 	display_match_label(p_team1.team_name, p_team1.team_color, p_team2.team_name, p_team2.team_color)
